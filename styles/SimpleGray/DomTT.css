@@ -1,0 +1,49 @@
+@charset "UTF-8";
+/*
+ * author: ts
+ * theme: SimpleGray
+ */
+
+div.niceTitle {
+  color: #000;
+  font-size: 13px;
+  left: 0;
+  top: 0;
+  padding: 4px;
+  position: absolute;
+  text-align: left;
+  z-index: 20;
+  border-radius: 8px;
+  background-color: #f1f2f3;
+  text-shadow: 0 0 4px #f1f2f3;
+}
+div.smilies table {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  text-align: center;
+  vertical-align: middle;
+}
+div.smilies td {
+  color: #000;
+  border: none;
+  font-size: 13px;
+  z-index: 20;
+  background-color: #f1f2f3;
+  text-shadow: 0 0 4px #f1f2f3;
+}
+div.niceTitle .contents {
+  margin: 0;
+  padding: 0 3px;
+}
+div.attach .contents {
+  width: 130px;
+  background: #f1f2f3;
+  border: 1px solid #ccc;
+  font-size: 12px;
+  padding: 5px;
+}
+div.attach .contents strong {
+  color: #0099CC;
+  font-weight: bold;
+}

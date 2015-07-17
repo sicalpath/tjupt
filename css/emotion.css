@@ -1,0 +1,457 @@
+@charset "utf-8";
+/*表情*/
+	.emotion-window {
+	position:absolute;
+	top:50px;
+	left:50px;
+	width:420px;
+}
+.emotion-window .emotion-box {
+	padding:9px;
+	overflow:hidden;
+	_zoom:1;
+}
+.emotion-window .emotion-box a {
+	float:left;
+	min-height:24px;
+	_height:24px;
+	margin-bottom:8px;
+}
+.emotion-window .emotion-box a img {
+	float:left;
+	margin:4px;
+	border:1px solid #ccc;
+}
+.emotion-window .emotion-box a:hover img {
+	border:1px solid #666;
+}
+.emotion-window .emotion_content {
+	clear:both
+}
+.emotion-window .emotion-box a.ani {
+	display:block;
+	float:left;
+	position:relative
+}
+.emotion-window .emotion-box a.ani img {
+	width:50px;
+	height:50px;
+	margin:2px;
+}
+.emotion-window .emotion-box a.ani span {
+	clear: both;
+	display: block;
+	overflow:hidden;
+	width:50px;
+	height:20px;
+	text-align: center;
+}
+.emotion-window .emotion-box a.ani .play_btn {
+	background: url(bgimg/magic_play.gif) no-repeat scroll 0 0 transparent;
+	display: inline-block;
+	height: 13px;
+	margin: 0 2px;
+	vertical-align: top;
+	width: 14px;
+	position:absolute;
+	bottom:23px;
+	right:0;
+}
+.emotion-window .emotion-box a:hover.ani .play_btn {
+	background-position: right top;
+}
+.emotion-window .emotion-box .emotion_page {
+	width:400px;
+	float:left;
+	clear:both;
+	text-align:left;
+	overflow:hidden;
+	_zoom:1;
+	height:20px;
+}
+.emotion-window .emotion-box .emotion_page span {
+	float:right;
+	display:block;
+}
+.emotion-window .emotion-box .emotion_page span a {
+	float:left;
+	margin-right:2px;
+	line-height:17px;
+	min-height:17px;
+	_height:17px;
+	border:1px solid #dddddd;
+	background:#ffffff;
+	padding:0px 4px;
+	text-decoration:none;
+}
+.emotion-window .emotion-box .emotion_page span a:hover,  .emotion-window .emotion-box .emotion_page span a.current,  .emotion-window .emotion-box .emotion_page span a.current:hover {
+	float:left;
+	margin-right:2px;
+	line-height:17px;
+	min-height:17px;
+	_height:17px;
+	border:1px solid #666;
+	background:#BFEDFF;
+	padding:0px 4px;
+	text-decoration:none;
+}
+.emotion_mag {
+	top:50%;
+	left:25%;
+	position:absolute;
+	margin-left:-220px;
+	margin-top:-180px
+}
+/* 表情列表 */
+.emotion_box {
+	width:418px;
+	clear:both;
+	height:50px;
+}
+.emotion_box_t1 {
+	height:27px;
+	overflow:hidden;
+	line-height:18px;
+	margin-top:10px;
+	padding-top:2px;
+}
+.emotion_box_t1 a {
+	height:25px;
+	width:73px;
+	line-height:25px;
+	text-align:center;
+	float:left;
+	font-weight:bold;
+	cursor:pointer;
+}
+.emotion_box_t1 a:hover {
+	height:25px;
+	width:73px;
+	line-height:25px;
+	text-align:center;
+	float:left;
+	font-weight:bold;
+	cursor:pointer;
+}
+.emotion_box_t1 a.current {
+	height:25px;
+	width:73px;
+	line-height:25px;
+	text-align:center;
+	float:left;
+	font-weight:bold;
+	cursor:pointer;
+	background:#ffffff;
+}
+.emotion_box_t1 a.current:hover {
+	height:25px;
+	width:73px;
+	line-height:25px;
+	text-align:center;
+	float:left;
+	font-weight:bold;
+	cursor:pointer;
+	background:#ffffff;
+}
+.emotion_box_t2 {
+	width:400px;
+	float:left;
+	clear:both;
+	padding:4px 9px 3px 9px;
+	background:#EEF4F5;
+	line-height:18px;
+	height:18px;
+	overflow:hidden;
+}
+.emotion_box_t2 .emotion_class {
+	float:left;
+	width:330px;
+	height:25px;
+	overflow:hidden;
+}
+.emotion_box_t2 .emotion_class .emotion_list {
+	width:100000px;
+	float:left;
+	clear:both;
+	display:block;
+}
+.emotion_box_t2 .emotion_class .emotion_list .loading_bg {
+	background: url("bgimg/Transparent.gif") no-repeat scroll center center transparent;
+	height:20px;
+	width: 380px;
+	margin-top:-3px
+}
+.emotion_box_t2 .emotion_class .emotion_list .emotiongroup {
+	float:left;
+	width:330px
+}
+.emotion_box_t2 .emotion_class span.line {
+	float:left;
+	background:url(bgimg/class_line.gif) no-repeat center center;
+	width:15px;
+	;
+}
+.emotion_box_t2 .emotion_class a {
+	float:left;
+	display:block;
+	border:1px solid #EEF4F5;
+	padding:0px 4px;
+	color:#0199BF;
+}
+.emotion_box_t2 .emotion_class a:hover, .emotion_box_t2 .emotion_class a.current, .emotion_box_t2 .emotion_class a.current:hover {
+	float:left;
+	display:block;
+	padding:0px 4px;
+	border:1px solid #C6E5EB;
+	background:#ffffff;
+	color:#494949;
+}
+.emotion_page {
+	width:32px;
+	float:right;
+	display:block;
+	margin-top:3px;
+}
+.emotion_page a.page_left {
+	float:left;
+	width:13px;
+	height:13px;
+	overflow:hidden;
+	background:url(bgimg/emotion_page.gif) no-repeat left -26px;
+	margin-left:3px;
+}
+.emotion_page a.page_right {
+	float:left;
+	width:13px;
+	height:13px;
+	overflow:hidden;
+	background:url(bgimg/emotion_page.gif) no-repeat left -39px;
+	margin-left:3px;
+}
+.emotion_page a.page_left_no {
+	float:left;
+	width:13px;
+	height:13px;
+	overflow:hidden;
+	background:url(bgimg/emotion_page.gif) no-repeat left -0px;
+	margin-left:3px;
+}
+.emotion_page a.page_right_no {
+	float:left;
+	width:13px;
+	height:13px;
+	overflow:hidden;
+	background:url(bgimg/emotion_page.gif) no-repeat left -13px;
+	margin-left:3px;
+}
+.emotion_page a:hover {
+	text-decoration:none
+}
+a.magic_link {
+	width:14px;
+	height:13px;
+	overflow:hidden;
+	background:url(bgimg/magic_play.gif) no-repeat left top;
+	position:absolute;
+	right:0px;
+	bottom:0px;
+}
+a.magic_link:hover {
+	width:14px;
+	height:13px;
+	overflow:hidden;
+	background:url(bgimg/magic_play.gif) no-repeat right top;
+	position:absolute;
+	right:0px;
+	bottom:0px;
+}
+/* 上传图片 */
+		.pop-window .pop-content .win_title {
+	background:url(bgimg/layer_title_bg.gif) repeat-x top;
+	height:27px;
+	padding-left:10px;
+	color:#494949;
+	margin:-1px 1px 0px 1px;
+	line-height:27px;
+}
+.pop-window .pop-content .win_title a.close-btn {
+	_position:absolute;
+	_float:left;
+	_left:330px;
+	right:9px;
+	top:8px;
+	_top:7px;
+	cursor:pointer;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+.pop-window .pop-content .win_title a.close-btn:hover {
+	_position:absolute;
+	_float:left;
+	_left:330px;
+	right:9px;
+	top:8px;
+	_top:7px;
+	cursor:pointer;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+/*弹出窗口*/
+		/*绝对定位窗口*/
+		.pop-window {
+	z-index:100001;
+}
+.pop-window .pop-t {
+	margin:0 3px;
+	height:2px;
+	background:#fff;
+	border-top:1px solid #6f6f6f;
+	_font-size:0;
+}
+.pop-window .pop-content {
+	background:#fff;
+	border:solid #6f6f6f;
+	border-width:0 1px;
+}
+.pop-window .pop-b {
+	margin:-1px 3px 0;
+	height:2px;
+	background:#fff;
+	border-bottom:1px solid #6f6f6f;
+	_font-size:0;
+}
+.pop-window .pop-title {
+	margin:-1px 1px 0;
+	height:26px;
+	line-height:26px;
+	font-size:12px;
+	text-indent:6px;
+}
+.pop-window .pop-title .close-btn {
+	float:right;
+	margin:8px 8px 0 0;
+	position:static;
+}
+.pop-window .pop-tl, .pop-window .pop-tr, .pop-window .pop-bl, .pop-window .pop-br {
+	width:3px;
+	height:3px;
+	_font-size:0;
+	overflow:hidden;
+}
+.pop-window .pop-tl {
+	left:0px;
+	top:0px;
+	position:absolute;
+	background:url(bgimg/all_bg.gif) no-repeat;
+	background-position:-34px -24px;
+}
+.pop-window .pop-tr {
+	right:0px;
+	top:0px;
+	position:absolute;
+	background:url(bgimg/all_bg.gif) no-repeat;
+	background-position:-37px -24px;
+}
+.pop-window .pop-bl {
+	float:left;
+	margin-top:-3px;
+	background:url(bgimg/all_bg.gif) no-repeat;
+	background-position:-34px -27px;
+}
+.pop-window .pop-br {
+	float:right;
+	margin-top:-3px;
+	background:url(bgimg/all_bg.gif) no-repeat;
+	background-position:-37px -27px;
+}
+.pop-window .arrow {
+	position:absolute;
+	left:25px;
+	top:-7px;
+	width:15px;
+	height:8px;
+	background:url(bgimg/all_bg.gif) no-repeat;
+	background-position:-41px -24px;
+	_font-size:0;
+}
+.pop-window .btn-area {
+	float:right;
+	margin-top:10px;
+}
+.pop-window .btn-area a {
+	margin-left:10px;
+}
+/*表情里的关闭按钮*/
+.emotion-window a.close-btn {
+	_position:absolute;
+	_float:left;
+	_left:390px;
+	_top:5px;
+	right:10px;
+	top:7px;
+	cursor:pointer;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+.emotion-window a.close-btn:hover {
+	_position:absolute;
+	_float:left;
+	_left:390px;
+	_top:5px;
+	right:10px;
+	top:7px;
+	cursor:pointer;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+a.close-btn {
+	width:17px;
+	height:17px;
+	overflow:hidden;
+	background:url(bgimg/icon_bgs.gif) no-repeat left -120px;
+	position:absolute;
+	top:13px;
+	right:15px;
+	_position:relative;
+	_float:left;
+	_left:380px;
+	_top:30px;
+	cursor:pointer;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+a.close-btn:hover {
+	width:17px;
+	height:17px;
+	overflow:hidden;
+	background:url(bgimg/icon_bgs.gif) no-repeat left -120px;
+	position:absolute;
+	top:13px;
+	right:15px;
+	_position:relative;
+	_float:left;
+	_left:380px;
+	_top:30px;
+	cursor:pointer;
+	text-decoration:none;
+	margin:0px;
+	padding:0px;
+}
+		/*fixed定位窗口*/
+		.fixed-window{ position:fixed; top:50%; left:50%;}
+		*html{ background-attachment:fixed; background-image:url('about:blank');}
+		*html .fixed-window{ position:absolute; bottom:auto; top:expression(documentElement.scrollTop + (documentElement.clientHeight/2 - this.clientHeight/2));  margin-top:0;}
+	
+	/*半透明黑色背景*/
+	.shade-div{ position:fixed; top:0; left:0; width:100%; background-color:#000; filter:alpha(opacity=10); opacity:0.1; _position:absolute; _top:expression(documentElement.scrollTop + 0);}
+
+/*显示魔法表情*/
+.magic_emotion{position: relative;width:56px; margin:3px 5px;}
+
+
+	

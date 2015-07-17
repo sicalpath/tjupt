@@ -1,0 +1,50 @@
+.curtain {
+    display: none;
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index:1001;
+    opacity:.80;
+    filter: alpha(opacity=80);
+}
+.lightbox {
+    display: none;
+    position: fixed;
+    text-align: center;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    padding: 0px;
+    z-index:1002;
+    overflow: auto;
+}
+/* =============================================================================
+   scroll to top
+   ========================================================================== */
+ #gotop {
+    display:block;
+    width:36px;
+    height:36px;
+    position:fixed;
+    bottom:40px;
+    right:30px;
+    border-radius:7px;
+    text-decoration:none;
+    display:none;
+    background-color:#999999;
+}
+#gotop span {
+    display:block;
+    color:#dddddd;
+}
+#gotop span:hover {
+    color:#cccccc;
+}
+#gotop span {
+    font-size:24px;
+    text-align:center;
+}

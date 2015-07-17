@@ -1,0 +1,36 @@
+@charset "utf-8";
+ul.menu li ul.submenu
+{
+	background: #013775;
+	border: #01326B solid;
+	border-width: 0 1px 1px 0;
+	display: none;
+	overflow: hidden;
+	position: absolute;
+	z-index: 100;
+	width: 120px;
+	zoom: 1;
+}
+ul.menu li ul.submenu li
+{
+	background-image: none;
+	border-bottom: 1px dotted #184A86;
+	float: none;
+	height: 40px;
+	line-height: 40px;
+	margin: 0;
+}
+ul.menu li ul.submenu li a
+{
+	background: #013775 none;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	padding: 0px 5px 0px 20px;
+	text-align: left;
+}
+ul.menu li ul.submenu li a:hover
+{
+	background-color: #01326B;
+	background-image: none;
+}
