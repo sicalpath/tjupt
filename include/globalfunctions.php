@@ -142,7 +142,7 @@ function sql_query($query)
 
 function sqlesc($value) {
     // Stripslashes
-    if (get_magic_quotes_gpc()) {
+    if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
         $value = stripslashes($value);
     }
     // Quote if not a number or a numeric string
