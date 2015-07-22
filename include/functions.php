@@ -2432,7 +2432,7 @@ function autoclean() {
 	return docleanup ();
 }
 function unesc($x) {
-	if (get_magic_quotes_gpc ())
+	if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc())
 		return stripslashes ( $x );
 	return $x;
 }
@@ -4267,13 +4267,18 @@ function GetVar($name) {
 	} else {
 		if (! isset ( $_REQUEST [$name] ))
 			return false;
-		if (get_magic_quotes_gpc ()) {
+		if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc()) {
 			$_REQUEST [$name] = ssr ( $_REQUEST [$name] );
 		}
 		$GLOBALS [$name] = $_REQUEST [$name];
 		return $GLOBALS [$name];
 	}
 }
+
+/** strip slashes for string or array
+* @param $arg
+ * @return array|string
+*/
 function ssr($arg) {
 	if (is_array ( $arg )) {
 		foreach ( $arg as $key => $arg_bit ) {
