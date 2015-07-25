@@ -210,6 +210,11 @@ function formatUrl($url, $newWindow = false, $text = '', $linkClass = '') {
 	if (! $text) {
 		$text = $url;
 	}
+	$url_host = parse_url($url);
+	if (($url_host != 'pt.tju.edu.cn') && ($url_host != 'pt.tju6.edu.cn'))
+	{
+		return addTempCode($text . '(' . htmlspecialchars($url) . ')');
+	}
 	return addTempCode ( "<a" . ($linkClass ? " class=\"$linkClass\"" : '') . " href=\"$url\"" . ($newWindow == true ? " target=\"_blank\"" : "") . ">$text</a>" );
 }
 function formatCode($text) {
