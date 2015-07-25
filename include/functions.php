@@ -213,18 +213,12 @@ function formatUrl($url, $newWindow = false, $text = '', $linkClass = '') {
 	$url_host = strtolower(parse_url($url, PHP_URL_HOST));
 	$host_whitelist = array('pt.tju.edu.cn',
 							'pt.tju6.edu.cn',
-							'tp.m-team.cc',
-							'bt.byr.cn',
-							'bt.neu6.edu.cn',
-							'www.imdb.com',
-							'movie.douban.com',
-							'pt.hit.edu.cn',
-							'pt.sjtu.edu.cn',
-							'nanyangpt.com',
-							'totheglory.im');
+							'', //no domain
+							);
+
 	if (!in_array($url_host, $host_whitelist))
 	{
-		return addTempCode(($url == $text ? '' : $text) . '(' . htmlspecialchars($url) . ')');
+	    return addTempCode ( "<a" . ($linkClass ? " class=\"$linkClass\"" : '') . " href=\"/jump_external.php?ext_url=" . urlencode($url) ."\"" . ($newWindow == true ? " target=\"_blank\"" : "") . ">$text</a>" );
 	}
 	return addTempCode ( "<a" . ($linkClass ? " class=\"$linkClass\"" : '') . " href=\"$url\"" . ($newWindow == true ? " target=\"_blank\"" : "") . ">$text</a>" );
 }
