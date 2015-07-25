@@ -217,7 +217,11 @@ function formatUrl($url, $newWindow = false, $text = '', $linkClass = '') {
 							'bt.byr.cn',
 							'bt.neu6.edu.cn',
 							'www.imdb.com',
-							'movie.douban.com');
+							'movie.douban.com',
+							'pt.hit.edu.cn',
+							'pt.sjtu.edu.cn',
+							'nanyangpt.com',
+							'totheglory.im');
 	if (!in_array($url_host, $host_whitelist))
 	{
 		return addTempCode(($url == $text ? '' : $text) . '(' . htmlspecialchars($url) . ')');
