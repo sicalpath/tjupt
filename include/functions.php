@@ -210,10 +210,17 @@ function formatUrl($url, $newWindow = false, $text = '', $linkClass = '') {
 	if (! $text) {
 		$text = $url;
 	}
-	$url_host = parse_url($url, PHP_URL_HOST);
-	if (($url_host != 'pt.tju.edu.cn') && ($url_host != 'pt.tju6.edu.cn'))
+	$url_host = strtolower(parse_url($url, PHP_URL_HOST));
+	$host_whitelist = array('pt.tju.edu.cn',
+							'pt.tju6.edu.cn',
+							'tp.m-team.cc',
+							'bt.byr.cn',
+							'bt.neu6.edu.cn',
+							'www.imdb.com',
+							'movie.douban.com');
+	if (!in_array($url_host, $host_whitelist))
 	{
-		return addTempCode($text . '(' . htmlspecialchars($url) . ')');
+		return addTempCode(($url == $text ? '' : $text) . '(' . htmlspecialchars($url) . ')');
 	}
 	return addTempCode ( "<a" . ($linkClass ? " class=\"$linkClass\"" : '') . " href=\"$url\"" . ($newWindow == true ? " target=\"_blank\"" : "") . ">$text</a>" );
 }
