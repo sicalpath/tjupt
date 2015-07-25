@@ -210,7 +210,7 @@ function formatUrl($url, $newWindow = false, $text = '', $linkClass = '') {
 	if (! $text) {
 		$text = $url;
 	}
-	$url_host = parse_url($url);
+	$url_host = parse_url($url, PHP_URL_HOST);
 	if (($url_host != 'pt.tju.edu.cn') && ($url_host != 'pt.tju6.edu.cn'))
 	{
 		return addTempCode($text . '(' . htmlspecialchars($url) . ')');
