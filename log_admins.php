@@ -57,7 +57,7 @@ if($_GET['queryclass'])
 	$queryclass = (trim($_GET['queryclass']));
 	$searchclass= (trim($_GET["searchclass"]));
 
-	if ( ! eregi("^[0-9]*$", $queryclass) ) 
+	if ( ! preg_match("/^[0-9]*$/", $queryclass) )
 	{
 			$queryclass=""; 
 			$_GET["queryclass"]="";

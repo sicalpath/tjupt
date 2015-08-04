@@ -15,8 +15,9 @@ dbconn();
 		
 		print("<table border=1 cellspacing=0 width=940 cellpadding=5><tr>\n");
 		print("<form method=\"get\" action='" . $_SERVER['PHP_SELF'] . "'>");
-		print("<td class=colhead align=left>可以输入用户名查询帐号封禁、删除记录：");		
-		print("<input type=\"text\" name=\"query\" style=\"width:100px\" value=\"".$_GET['query']."\">\n");
+		print("<td class=colhead align=left>可以输入用户名查询帐号封禁、删除记录：");
+        print("<br>当前查询：" . htmlspecialchars($_GET['query']) ."<br>");
+		print("<input type=\"text\" name=\"query\" style=\"width:100px\">\n");
 		print("<input type=submit value=搜索></form>\n");
 		print("</td></tr></table><br />\n");
 		
