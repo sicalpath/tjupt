@@ -2826,22 +2826,22 @@ function stdhead($title = "", $msgalert = true, $script = "", $place = "") {
 	$cssupdatedate = ($cssupdatedate ? "?" . htmlspecialchars ( $cssupdatedate ) : "");
 	?>
 <title><?php echo $title?></title>
-<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="search" type="application/opensearchdescription+xml"
-	title="<?php echo $SITENAME?> Torrents" href="opensearch.php" />
+	title="<?php echo $SITENAME?> Torrents" href="/opensearch.php" />
 <link rel="stylesheet"
-	href="<?php echo get_font_css_uri().$cssupdatedate?>" type="text/css" />
+	href="/<?php echo get_font_css_uri().$cssupdatedate?>" type="text/css" />
 <link rel="stylesheet"
-	href="styles/sprites.css<?php echo $cssupdatedate?>" type="text/css" />
+	href="/styles/sprites.css<?php echo $cssupdatedate?>" type="text/css" />
 <link rel="stylesheet"
-	href="<?php echo get_forum_pic_folder()."/forumsprites.css".$cssupdatedate?>"
+	href="/<?php echo get_forum_pic_folder()."/forumsprites.css".$cssupdatedate?>"
 	type="text/css" />
 <link rel="stylesheet"
-	href="<?php echo $css_uri."theme.css".$cssupdatedate?>" type="text/css" />
+	href="/<?php echo $css_uri."theme.css".$cssupdatedate?>" type="text/css" />
 <link rel="stylesheet"
-	href="<?php echo $css_uri."DomTT.css".$cssupdatedate?>" type="text/css" />
+	href="/<?php echo $css_uri."DomTT.css".$cssupdatedate?>" type="text/css" />
 <link rel="stylesheet"
-	href="styles/curtain_imageresizer.css<?php echo $cssupdatedate?>"
+	href="/styles/curtain_imageresizer.css<?php echo $cssupdatedate?>"
 	type="text/css" />
 
 <?php
@@ -2853,7 +2853,7 @@ function stdhead($title = "", $msgalert = true, $script = "", $place = "") {
 		if ($caticonrow ['cssfile']) {
 			?>
 <link rel="stylesheet"
-	href="<?php echo htmlspecialchars($caticonrow['cssfile']).$cssupdatedate?>"
+	href="/<?php echo htmlspecialchars($caticonrow['cssfile']).$cssupdatedate?>"
 	type="text/css" />
 <?php
 		}
@@ -2868,27 +2868,27 @@ function stdhead($title = "", $msgalert = true, $script = "", $place = "") {
 -->
 </style>
 <link rel="alternate" type="application/rss+xml" title="Latest Torrents"
-	href="torrentrss.php" />
+	href="/torrentrss.php" />
 <script type="text/javascript"
-	src="js/curtain_imageresizer.js<?php echo $cssupdatedate?>"></script>
+	src="/js/curtain_imageresizer.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/ajaxbasic.js<?php echo $cssupdatedate?>"></script>
+	src="/js/ajaxbasic.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/common.js<?php echo $cssupdatedate?>"></script>
+	src="/js/common.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/domLib.js<?php echo $cssupdatedate?>"></script>
+	src="/js/domLib.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/domTT.js<?php echo $cssupdatedate?>"></script>
+	src="/js/domTT.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/domTT_drag.js<?php echo $cssupdatedate?>"></script>
+	src="/js/domTT_drag.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/fadomatic.js<?php echo $cssupdatedate?>"></script>
+	src="/js/fadomatic.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/client.js<?php echo $cssupdatedate?>"></script>
+	src="/js/client.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/jquery-1.8.0.min.js<?php echo $cssupdatedate?>"></script>
+	src="/js/jquery-1.8.0.min.js<?php echo $cssupdatedate?>"></script>
 <script type="text/javascript"
-	src="js/tjuptfunctions.js<?php echo $cssupdatedate?>"></script>
+	src="/js/tjuptfunctions.js<?php echo $cssupdatedate?>"></script>
 <?php
 	if ($_SERVER ['PHP_SELF'] == "/edit.php" || $_SERVER ['PHP_SELF'] == "/details.php" || $_SERVER ['PHP_SELF'] == "/mybonusapps.php" || $_SERVER ['PHP_SELF'] == "/mybonus.php" || $_SERVER ['PHP_SELF'] == "/app_luckydraw.php" || $_SERVER ['PHP_SELF'] == "/manage.php" || $_SERVER ['PHP_SELF'] == "/jc_currentbet_L.php") {
 		echo '
