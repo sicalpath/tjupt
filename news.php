@@ -50,7 +50,15 @@ if ($action == 'add')
 	sql_query("INSERT INTO news (userid, added, body, title, notify) VALUES (".sqlesc($CURUSER['id']) . ", $added, " . sqlesc($body) . ", " . sqlesc($title) . ", " . sqlesc($notify).")") or sqlerr(__FILE__, __LINE__);
 	$Cache->delete_value('recent_news',true);
 	if (mysql_affected_rows() != 1)
-	stderr($lang_news['std_error'], $lang_news['std_something_weird_happened']);	
+	stderr($lang_news['std_error'], $lang_news['std_something_weird_happened']);
+    if($notify=='yes'){
+        $all_users = sql_query("SELECT id FROM users WHERE id=558");
+        $dt = sqlesc(date("Y-m-d H:i:s"));
+        while($dat=mysql_fetch_assoc($query))
+        {
+            sql_query("INSERT INTO messages (sender, receiver, added,  subject, msg) VALUES (0, $dat[id], $dt, " . sqlesc("公告：".$title) .", " . sqlesc($body."<p> 详见首页公告") .")") or sqlerr(__FILE__,__LINE__);
+        }
+    }
 	header("Location: index.php");
 }
 
@@ -103,7 +111,7 @@ if ($action == 'edit')
 		print("<form id=\"compose\" name=\"compose\" method=\"post\" action=\"".htmlspecialchars("?action=edit&newsid=".$newsid)."\">");
 		print("<input type=\"hidden\" name=\"returnto\" value=\"".$returnto."\" />");
 		begin_compose($title, "edit", $body, true, $subject);
-		print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"yes\" ".($arr['notify'] == 'yes' ? " checked=\"checked\"" : "")." />".$lang_news['text_notify_users_of_this']."</td></tr>\n");
+		print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"yes\" ".($arr['notify'] == 'yes' ? "" : "")." />".$lang_news['text_notify_users_of_this']."</td></tr>\n");
 		end_compose();
 		end_main_frame();
 		stdfoot();
