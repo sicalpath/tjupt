@@ -8,6 +8,18 @@ if (get_user_class() < $newsmanage_class)
 
 $action = htmlspecialchars($_GET["action"]);
 
+//  Mail Everyone       //////////////////////////////////////////////////////
+// MAY BE SLOW AS SHIT!
+function message_everyone($title, $msg)
+{
+    $all_users = sql_query("SELECT id FROM users");
+    $dt = sqlesc(date("Y-m-d H:i:s"));
+    while($dat=mysql_fetch_assoc($all_users))
+    {
+        sql_query("INSERT INTO messages (sender, receiver, added,  subject, msg) VALUES (0, $dat[id], $dt, " . sqlesc("系统公告：".$title) .", " . sqlesc($msg."\r\n\r\n详见首页公告") .")") or sqlerr(__FILE__,__LINE__);
+    }
+}
+
 //  Delete News Item    //////////////////////////////////////////////////////
 
 if ($action == 'delete')
@@ -46,20 +58,17 @@ if ($action == 'add')
 	$added = sqlesc(date("Y-m-d H:i:s"));
 	$notify = $_POST['notify'];
 	if ($notify != 'yes')
-		$notify = 'no'; 
+		$notify = 'no';
 	sql_query("INSERT INTO news (userid, added, body, title, notify) VALUES (".sqlesc($CURUSER['id']) . ", $added, " . sqlesc($body) . ", " . sqlesc($title) . ", " . sqlesc($notify).")") or sqlerr(__FILE__, __LINE__);
 	$Cache->delete_value('recent_news',true);
 	if (mysql_affected_rows() != 1)
 	stderr($lang_news['std_error'], $lang_news['std_something_weird_happened']);
-    if($notify=='yes'){
-        $all_users = sql_query("SELECT id FROM users WHERE id=558");
-        $dt = sqlesc(date("Y-m-d H:i:s"));
-        while($dat=mysql_fetch_assoc($query))
-        {
-            sql_query("INSERT INTO messages (sender, receiver, added,  subject, msg) VALUES (0, $dat[id], $dt, " . sqlesc("公告：".$title) .", " . sqlesc($body."<p> 详见首页公告") .")") or sqlerr(__FILE__,__LINE__);
-        }
+    if($notify != 'no'){
+        message_everyone(htmlspecialchars($_POST['subject']), htmlspecialchars($_POST['body'], ENT_QUOTES));
     }
-	header("Location: index.php");
+	stdhead();
+    stdmsg("发送公告", "您的公告已发送");
+    stdfoot();
 }
 
 //  Edit News Item    ////////////////////////////////////////////////////////
@@ -99,8 +108,12 @@ if ($action == 'edit')
 		$title = sqlesc($title);
 		sql_query("UPDATE news SET body=$body, title=$title, notify=$notify WHERE id=".sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
 		$Cache->delete_value('recent_news',true);
-		header("Location: index.php");
-	}
+        if($notify != 'no'){
+            message_everyone(htmlspecialchars($_POST['subject']), htmlspecialchars($_POST['body'], ENT_QUOTES));
+        }
+        stdhead();
+        stdmsg("编辑公告", "您的公告已编辑完成");
+        stdfoot();	}
 	else
 	{
 		stdhead($lang_news['head_edit_site_news']);
