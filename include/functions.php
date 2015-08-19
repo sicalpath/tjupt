@@ -387,7 +387,7 @@ function format_imdbid($s, $newWindow = false) { // torrents.url
 	global $Cache, $BASEURL;
 	return $s;
 }
-function format_comment($text, $strip_html = true, $xssclean = false, $newtab = false, $imageresizer = true, $image_max_width = 700, $enableimage = true, $enableflash = true, $imagenum = -1, $image_max_height = 0, $adid = 0) {
+function format_comment($text, $strip_html = true, $xssclean = false, $newtab = false, $imageresizer = true, $image_max_width = 700, $enableimage = true, $enableflash = true, $imagenum = -1, $image_max_height = 0, $adid = 0, $enable_size = true) {
 	global $Cache;
 	$cache = ($image_max_width == 700 && $image_max_height == 0 && $newtab == false);
 	if ($cache) {
@@ -418,6 +418,11 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 
 	if (strpos ( $s, "[code]" ) !== false && strpos ( $s, "[/code]" ) !== false) {
 		$s = preg_replace ( "/\[code\](.+?)\[\/code\]/eis", "formatCode('\\1')", $s );
+	}
+
+	if ($enable_size == false){
+	    $s = preg_replace("/\[size=([1-7])\]/is", '', $s);
+	    $s = str_replace('[/size]', '', $s);
 	}
 
 	$originalBbTagArray = array (

@@ -255,7 +255,7 @@ else {
 			$time = strftime ( "%m.%d %H:%M", $arr ["date"] );
 		else
 			$time = get_elapsed_time ( $arr ["date"] ) . $lang_shoutbox ['text_ago'];
-		print ("<tr><td class=\"shoutrow\" ocr=\"$usernamesb\">" . $del . " " . "<span class='date'>[" . $time . "]</span> " . "$username" . " " . str_replace ( "[ ", "[", format_comment ( $arr ["text"], true, false, true, true, 600, true, false ) ) . "
+		print ("<tr><td class=\"shoutrow\" ocr=\"$usernamesb\">" . $del . " " . "<span class='date'>[" . $time . "]</span> " . "$username" . " " . str_replace ( "[ ", "[", format_comment ( $arr ["text"], true, false, true, true, 600, true, false, -1, 0, 0, false ) ) . "
 </td></tr>\n") ;
 	}
 	print ("</table>") ;
