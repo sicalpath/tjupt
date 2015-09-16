@@ -2284,6 +2284,16 @@ function dbconn($autoclean = false) {
 	if ($_SERVER['REQUEST_URI']!='/changeemailforyahoo.php')
 	userlogin ();
 
+	$nip = ip2long ( getip() );
+	if($nip) // Only IPv4
+	{
+	    if (!check_tjuip($nip) && !(get_user_class () >= UC_MODERATOR)) {
+            header ( "HTTP/1.0 403 Forbidden" );
+            print ("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>" . $lang_functions ['text_nontjuip'] . "</body></html>\n") ;
+            die ();
+        }
+	}
+
 	if (! $useCronTriggerCleanUp && $autoclean) {
 		register_shutdown_function ( "autoclean" );
 	}
@@ -2336,6 +2346,7 @@ function userlogin() {
 	global $SITE_ONLINE, $oldip;
 	global $enablesqldebug_tweak, $sqldebug_tweak;
 	unset ( $GLOBALS ["CURUSER"] );
+	$login_success = false;
 
 	$ip = getip ();
 	$nip = ip2long ( $ip );
@@ -2347,12 +2358,12 @@ function userlogin() {
 			print ("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>" . $lang_functions ['text_unauthorized_ip'] . "</body></html>\n") ;
 			die ();
 		}
-
-		if (!check_tjuip($nip)) {
-			header ( "HTTP/1.0 403 Forbidden" );
-			print ("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>" . $lang_functions ['text_nontjuip'] . "</body></html>\n") ;
-			die ();
-		}
+//		Not check Non-TJU IP here so mods can use
+//		if (!check_tjuip($nip)) {
+//			header ( "HTTP/1.0 403 Forbidden" );
+//			print ("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>" . $lang_functions ['text_nontjuip'] . "</body></html>\n") ;
+//			die ();
+//		}
 	} elseif (! validateIPv6 ( $ip )) {
 		header ( "HTTP/1.0 403 Forbidden" );
 		print ("<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"></head><body>" . $lang_functions ['text_unauthorized_ip'] . "</body></html>\n") ;
@@ -2425,6 +2436,7 @@ function userlogin() {
 		error_reporting ( E_ALL & ~ E_NOTICE );
 	}
 }
+
 function autoclean() {
 	global $autoclean_interval_one, $rootpath, $lang_cleanup_target;
 	$now = TIMENOW;
@@ -2665,7 +2677,7 @@ function menu($selected = "home") {
 	if ($nip)
 		$res = sql_query ( "SELECT * FROM nontjuip WHERE $nip >= first AND $nip <= last" ) or sqlerr ( __FILE__, __LINE__ );
 
-	if (! ip2long ( $ip ) || ($nip && mysql_num_rows ( $res ) == 0)) {
+	if ( (get_user_class()>=UC_MODERATOR) || !(ip2long ( $ip )) || ($nip && mysql_num_rows ( $res ) == 0)) {
 		if ($CURUSER ['downloadpos'] == "yes")
 			print ("<li" . ($selected == "torrents" ? " class=\"selected\"" : "") . "><a href=\"torrents.php\">" . $lang_functions ['text_torrents'] . "</a></li>") ;
 		if ($enablespecial == 'yes')
@@ -3052,7 +3064,18 @@ if (false) {
 					<tr>
 						<td><table width="100%" cellspacing="0" cellpadding="0" border="0">
 								<tr>
-									<td class="bottom" align="left"><span class="medium"><?php echo $lang_functions['text_welcome_back'] ?>, <?php echo get_username($CURUSER['id'])?>  [<a
+									<td class="bottom" align="left"><span class="medium"><?php echo $lang_functions['text_welcome_back'] ?>,
+									<?php
+									 echo get_username($CURUSER['id']);
+									 $nip = ip2long(getip());
+									 if($nip)
+									 {
+									    if(!check_tjuip($nip))
+									    {
+									        echo "<span style='color: red'>（校外IPv4访问）</span>";
+									    }
+									 }
+									?>  [<a
 											href="logout.php"><?php echo $lang_functions['text_logout'] ?></a>]<?php if (get_user_class() >= UC_MODERATOR) { ?> [<a
 											href="staffpanel.php"><?php echo $lang_functions['text_staff_panel'] ?></a>] <?php }?> <?php if (get_user_class() >= UC_SYSOP) { ?> [<a
 											href="settings.php"><?php echo $lang_functions['text_site_settings'] ?></a>]<?php } ?> [<a
