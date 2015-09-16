@@ -41,7 +41,7 @@ $ip = getip (); // avoid to get the spoof ip from some agent
 if (! $port || $port > 0xffff)
 	err ( "端口号错误" );
 	// 3. CHECK IF CLIENT IS ALLOWED
-$clicheck_res = check_client ( $peer_id, $agent, &$client_familyid );
+$clicheck_res = check_client ( $peer_id, $agent, $client_familyid );
 if (! $clicheck_res) {
 	err ( "你所使用的客户端是允许使用的客户端" );
 }

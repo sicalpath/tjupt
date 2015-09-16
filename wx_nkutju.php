@@ -46,7 +46,7 @@ function check_client($peer_id, $agent, $agent_familyid)
 		if($row_allowed_ua['peer_id_pattern'] != '')
 		{
 			if(!preg_match($row_allowed_ua['peer_id_pattern'], $row_allowed_ua['peer_id_start'], $match_bench))
-			err("¿Í»§¶Ë(peerid): " . $row_allowed_ua['peer_id_start'] . " µÄÆðÊ¼°æ±¾²»Æ¥Åä£¬ÇëÁªÏµÍøÕ¾³ÌÐòÔ±ÐÞ¸´£¡");
+			err("ï¿½Í»ï¿½ï¿½ï¿½(peerid): " . $row_allowed_ua['peer_id_start'] . " ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½æ±¾ï¿½ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Þ¸ï¿½ï¿½ï¿½");
 
 			if(preg_match($row_allowed_ua['peer_id_pattern'], $peer_id, $match_target))
 			{
@@ -74,7 +74,7 @@ function check_client($peer_id, $agent, $agent_familyid)
 						{
 							$allowed_flag_peer_id = false;
 							$version_low_peer_id = true;
-							$low_version = "ÄãÊ¹ÓÃµÄ¿Í»§¶Ë " . $row_allowed_ua['family'] . " °æ±¾¹ýµÍ£¬ÇëÉý¼¶ÖÁ " . $row_allowed_ua['start_name']. " Ö®ºó°æ±¾£¡";
+							$low_version = "ï¿½ï¿½Ê¹ï¿½ÃµÄ¿Í»ï¿½ï¿½ï¿½ " . $row_allowed_ua['family'] . " ï¿½æ±¾ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " . $row_allowed_ua['start_name']. " Ö®ï¿½ï¿½æ±¾ï¿½ï¿½";
 							break;
 						}
 						else if($match_target[$i+1] == $match_bench[$i+1])//equal
@@ -96,7 +96,7 @@ function check_client($peer_id, $agent, $agent_familyid)
 		if($row_allowed_ua['agent_pattern'] != '')
 		{
 			if(!preg_match($row_allowed_ua['agent_pattern'], $row_allowed_ua['agent_start'], $match_bench))
-			err("¿Í»§¶Ë(agent): " . $row_allowed_ua['agent_start'] . " µÄÆðÊ¼°æ±¾²»Æ¥Åä£¬ÇëÁªÏµÍøÕ¾³ÌÐòÔ±ÐÞ¸´£¡");
+			err("ï¿½Í»ï¿½ï¿½ï¿½(agent): " . $row_allowed_ua['agent_start'] . " ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½æ±¾ï¿½ï¿½Æ¥ï¿½ä£¬ï¿½ï¿½ï¿½ï¿½Ïµï¿½ï¿½Õ¾ï¿½ï¿½ï¿½ï¿½Ô±ï¿½Þ¸ï¿½ï¿½ï¿½");
 
 			if(preg_match($row_allowed_ua['agent_pattern'], $agent, $match_target))
 			{
@@ -124,7 +124,7 @@ function check_client($peer_id, $agent, $agent_familyid)
 						{
 							$allowed_flag_agent = false;
 							$version_low_agent = true;
-							$low_version = "ÄãÊ¹ÓÃµÄ¿Í»§¶Ë " . $row_allowed_ua['family'] . " °æ±¾¹ýµÍ£¬ÇëÉý¼¶ÖÁ " . $row_allowed_ua['start_name']. " Ö®ºó°æ±¾£¡";
+							$low_version = "ï¿½ï¿½Ê¹ï¿½ÃµÄ¿Í»ï¿½ï¿½ï¿½ " . $row_allowed_ua['family'] . " ï¿½æ±¾ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ " . $row_allowed_ua['start_name']. " Ö®ï¿½ï¿½æ±¾ï¿½ï¿½";
 							break;
 						}
 						else //equal
@@ -161,7 +161,7 @@ function check_client($peer_id, $agent, $agent_familyid)
 				foreach ($clients_exp as $row_allowed_ua_exp)
 				{
 					if($row_allowed_ua_exp['agent'] == $agent && preg_match("/^" . $row_allowed_ua_exp['peer_id'] . "/", $peer_id))
-					return "¿Í»§¶Ë " . $row_allowed_ua_exp['name'] . " ÒòÎª " . $row_allowed_ua_exp['comment'] . " ±»½ûÖ¹ÔÚ±¾Õ¾Ê¹ÓÃ£¡";
+					return "ï¿½Í»ï¿½ï¿½ï¿½ " . $row_allowed_ua_exp['name'] . " ï¿½ï¿½Îª " . $row_allowed_ua_exp['comment'] . " ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½Ú±ï¿½Õ¾Ê¹ï¿½Ã£ï¿½";
 				}
 			}
 			$agent_familyid = $row_allowed_ua['id'];
@@ -176,7 +176,7 @@ function check_client($peer_id, $agent, $agent_familyid)
 			if($allow_https == 'yes')
 			return 0;
 			else
-			return "µ±Ç°¿Í»§¶Ë²»ÄÜºÜºÃµÄÖ§³Öhttps£¬Çëµ½ $BASEURL/faq.php#id29 ²é¿´ÍÆ¼ö¿Í»§¶Ë£¡";
+			return "ï¿½ï¿½Ç°ï¿½Í»ï¿½ï¿½Ë²ï¿½ï¿½ÜºÜºÃµï¿½Ö§ï¿½ï¿½httpsï¿½ï¿½ï¿½ëµ½ $BASEURL/faq.php#id29 ï¿½é¿´ï¿½Æ¼ï¿½ï¿½Í»ï¿½ï¿½Ë£ï¿½";
 		}
 		else
 		return 0;	// no exception found, so allowed or just allowed
@@ -186,10 +186,10 @@ function check_client($peer_id, $agent, $agent_familyid)
 		if($version_low_peer_id && $version_low_agent)
 		return $low_version;
 		else
-		return "·Ç·¨¿Í»§¶Ë£¬Çëµ½ $BASEURL/faq.php#id29 ²é¿´ÔÊÐí¿Í»§¶ËÁÐ±í£¡";
+		return "ï¿½Ç·ï¿½ï¿½Í»ï¿½ï¿½Ë£ï¿½ï¿½ëµ½ $BASEURL/faq.php#id29 ï¿½é¿´ï¿½ï¿½ï¿½ï¿½Í»ï¿½ï¿½ï¿½ï¿½Ð±ï¿½";
 	}
 }
 
-var_dump(check_client ( 'R20------iZuNXWGkACK', 'ACEStream/ACEStream-2.0', &$client_familyid ));
+var_dump(check_client ( 'R20------iZuNXWGkACK', 'ACEStream/ACEStream-2.0', $client_familyid ));
 var_Dump($client_familyid);
 ?>

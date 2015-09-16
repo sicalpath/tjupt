@@ -114,7 +114,7 @@ $userid = 0+$az['id'];
 if ($userid!=99) err("权限不足");
 
 //3. CHECK IF CLIENT IS ALLOWED
-$clicheck_res = check_client($peer_id,$agent,&$client_familyid);
+$clicheck_res = check_client($peer_id,$agent,$client_familyid);
 if($clicheck_res){
 	if ($az['showclienterror'] == 'no')
 	{
