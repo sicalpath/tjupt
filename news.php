@@ -124,7 +124,7 @@ if ($action == 'edit')
 		print("<form id=\"compose\" name=\"compose\" method=\"post\" action=\"".htmlspecialchars("?action=edit&newsid=".$newsid)."\">");
 		print("<input type=\"hidden\" name=\"returnto\" value=\"".$returnto."\" />");
 		begin_compose($title, "edit", $body, true, $subject);
-		print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"yes\" ".($arr['notify'] == 'yes' ? "" : "")." />".$lang_news['text_notify_users_of_this']."</td></tr>\n");
+		print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"no\" />".$lang_news['text_notify_users_of_this']."</td></tr>\n");
 		end_compose();
 		end_main_frame();
 		stdfoot();
