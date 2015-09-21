@@ -1,5 +1,6 @@
 <?php
 require_once ("include/bittorrent.php");
+require_once ("include/tjuip_helper.php");
 dbconn ();
 require_once (get_langfile_path ());
 require_once (get_langfile_path ( "", true ));
@@ -16,17 +17,7 @@ function bark($msg) {
 	exit ();
 }
 
-$ip = getip ();
-$nip = ip2long ( $ip );
-if ($nip) {
-
-	if (!check_tjuip($nip)) {
-		stdhead ( "没有权限" );
-		stdmsg ( "没有访问权限", "你正在使用校外IP地址访问本站，不允许浏览本页面" );
-		stdfoot ();
-		exit ();
-	}
-}
+assert_tjuip_or_mod();
 
 if ($_GET ["category"]) {
 	$categ = isset ( $_GET ['category'] ) ? ( int ) $_GET ['category'] : 0;
