@@ -4,132 +4,129 @@ dbconn();
 require_once(get_langfile_path());
 loggedinorreturn();
 if (get_user_class() < $newsmanage_class)
-	permissiondenied();
+    permissiondenied();
 
 $action = htmlspecialchars($_GET["action"]);
 
+/*
+ * FIXME: notify checkbox is broken.
+ */
 //  Mail Everyone       //////////////////////////////////////////////////////
 // MAY BE SLOW AS SHIT!
 function message_everyone($title, $msg)
 {
-    $all_users = sql_query("SELECT id FROM users");
+    $all_users = sql_query("SELECT id FROM users WHERE `id`=558");
     $dt = sqlesc(date("Y-m-d H:i:s"));
-    while($dat=mysql_fetch_assoc($all_users))
-    {
-        sql_query("INSERT INTO messages (sender, receiver, added,  subject, msg) VALUES (0, $dat[id], $dt, " . sqlesc("系统公告：".$title) .", " . sqlesc($msg."\r\n\r\n详见首页公告") .")") or sqlerr(__FILE__,__LINE__);
+    while ($dat = mysql_fetch_assoc($all_users)) {
+        sql_query("INSERT INTO messages (sender, receiver, added,  subject, msg) VALUES (0, $dat[id], $dt, " . sqlesc("系统公告：" . $title) . ", " . sqlesc($msg . "\r\n\r\n详见首页公告") . ")") or sqlerr(__FILE__, __LINE__);
     }
 }
 
 //  Delete News Item    //////////////////////////////////////////////////////
 
-if ($action == 'delete')
-{
-	$newsid = 0+$_GET["newsid"];
-	int_check($newsid,true);
+if ($action == 'delete') {
+    $newsid = 0 + $_GET["newsid"];
+    int_check($newsid, true);
 
-	$returnto = $_GET["returnto"] ? htmlspecialchars($_GET["returnto"]) : htmlspecialchars($_SERVER["HTTP_REFERER"]);
+    $returnto = $_GET["returnto"] ? htmlspecialchars($_GET["returnto"]) : htmlspecialchars($_SERVER["HTTP_REFERER"]);
 
-	$sure = 0+$_GET["sure"];
-	if (!$sure)
-	stderr($lang_news['std_delete_news_item'], $lang_news['std_are_you_sure'] . "<a class=altlink href=?action=delete&newsid=$newsid&returnto=$returnto&sure=1>".$lang_news['std_here']."</a>".$lang_news['std_if_sure'],false);
+    $sure = 0 + $_GET["sure"];
+    if (!$sure)
+        stderr($lang_news['std_delete_news_item'], $lang_news['std_are_you_sure'] . "<a class=altlink href=?action=delete&newsid=$newsid&returnto=$returnto&sure=1>" . $lang_news['std_here'] . "</a>" . $lang_news['std_if_sure'], false);
 
-	sql_query("DELETE FROM news WHERE id=".sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
-	$Cache->delete_value('recent_news','true');
-	if ($returnto != "")
-	header("Location: $returnto");
-	else
-	header("Location: index.php");
+    sql_query("DELETE FROM news WHERE id=" . sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
+    $Cache->delete_value('recent_news', 'true');
+    if ($returnto != "")
+        header("Location: $returnto");
+    else
+        header("Location: index.php");
 }
 
 //  Add News Item    /////////////////////////////////////////////////////////
 
-if ($action == 'add')
-{
-	$body = htmlspecialchars($_POST['body'],ENT_QUOTES);
-	if (!$body)
-	stderr($lang_news['std_error'], $lang_news['std_news_body_empty']);
+if ($action == 'add') {
+    $body = htmlspecialchars($_POST['body'], ENT_QUOTES);
+    if (!$body)
+        stderr($lang_news['std_error'], $lang_news['std_news_body_empty']);
 
-	$title = htmlspecialchars($_POST['subject']);
-	if (!$title)
-	stderr($lang_news['std_error'], $lang_news['std_news_title_empty']);
+    $title = htmlspecialchars($_POST['subject']);
+    if (!$title)
+        stderr($lang_news['std_error'], $lang_news['std_news_title_empty']);
 
-	$added = $_POST["added"];
-	if (!$added)
-	$added = sqlesc(date("Y-m-d H:i:s"));
-	$notify = $_POST['notify'];
-	if ($notify != 'yes')
-		$notify = 'no';
-	sql_query("INSERT INTO news (userid, added, body, title, notify) VALUES (".sqlesc($CURUSER['id']) . ", $added, " . sqlesc($body) . ", " . sqlesc($title) . ", " . sqlesc($notify).")") or sqlerr(__FILE__, __LINE__);
-	$Cache->delete_value('recent_news',true);
-	if (mysql_affected_rows() != 1)
-	stderr($lang_news['std_error'], $lang_news['std_something_weird_happened']);
-    if($notify != 'no'){
+    $added = $_POST["added"];
+    if (!$added)
+        $added = sqlesc(date("Y-m-d H:i:s"));
+    $notify = $_POST['notify'];
+    if ($notify != 'yes')
+        $notify = 'no';
+    sql_query("INSERT INTO news (userid, added, body, title, notify) VALUES (" . sqlesc($CURUSER['id']) . ", $added, " . sqlesc($body) . ", " . sqlesc($title) . ", " . sqlesc($notify) . ")") or sqlerr(__FILE__, __LINE__);
+    $Cache->delete_value('recent_news', true);
+    if (mysql_affected_rows() != 1)
+        stderr($lang_news['std_error'], $lang_news['std_something_weird_happened']);
+    if ($notify == 'yes') {
         message_everyone(htmlspecialchars($_POST['subject']), htmlspecialchars($_POST['body'], ENT_QUOTES));
     }
-	stdhead();
+    stdhead();
     stdmsg("发送公告", "您的公告已发送");
     stdfoot();
 }
 
 //  Edit News Item    ////////////////////////////////////////////////////////
 
-if ($action == 'edit')
-{
+if ($action == 'edit') {
 
-	$newsid = 0+$_GET["newsid"];
-	int_check($newsid,true);
+    $newsid = 0 + $_GET["newsid"];
+    int_check($newsid, true);
 
-	$res = sql_query("SELECT * FROM news WHERE id=".sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT * FROM news WHERE id=" . sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
 
-	if (mysql_num_rows($res) != 1)
-	stderr($lang_news['std_error'], $lang_news['std_invalid_news_id'].$newsid);
+    if (mysql_num_rows($res) != 1)
+        stderr($lang_news['std_error'], $lang_news['std_invalid_news_id'] . $newsid);
 
-	$arr = mysql_fetch_array($res);
+    $arr = mysql_fetch_array($res);
 
-	if ($_SERVER['REQUEST_METHOD'] == 'POST')
-	{
-		$body = htmlspecialchars($_POST['body'],ENT_QUOTES);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $body = htmlspecialchars($_POST['body'], ENT_QUOTES);
 
-		if ($body == "")
-		stderr($lang_news['std_error'], $lang_news['std_news_body_empty']);
+        if ($body == "")
+            stderr($lang_news['std_error'], $lang_news['std_news_body_empty']);
 
-		$title = htmlspecialchars($_POST['subject']);
+        $title = htmlspecialchars($_POST['subject']);
 
-		if ($title == "")
-		stderr($lang_news['std_error'], $lang_news['std_news_title_empty']);
+        if ($title == "")
+            stderr($lang_news['std_error'], $lang_news['std_news_title_empty']);
 
-		$body = sqlesc($body);
+        $body = sqlesc($body);
 
-		$editdate = sqlesc(date("Y-m-d H:i:s"));
-		$notify = $_POST['notify'];
-		if ($notify != 'yes')
-			$notify = 'no';
-		$notify = sqlesc($notify);
-		$title = sqlesc($title);
-		sql_query("UPDATE news SET body=$body, title=$title, notify=$notify WHERE id=".sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
-		$Cache->delete_value('recent_news',true);
-        if($notify != 'no'){
+        $editdate = sqlesc(date("Y-m-d H:i:s"));
+        $notify = $_POST['notify'];
+        if ($notify != 'yes')
+            $notify = 'no';
+        $notify = sqlesc($notify);
+        $title = sqlesc($title);
+        sql_query("UPDATE news SET body=$body, title=$title, notify=$notify WHERE id=" . sqlesc($newsid)) or sqlerr(__FILE__, __LINE__);
+        $Cache->delete_value('recent_news', true);
+        if ($notify == 'yes') {
             message_everyone(htmlspecialchars($_POST['subject']), htmlspecialchars($_POST['body'], ENT_QUOTES));
         }
         stdhead();
         stdmsg("编辑公告", "您的公告已编辑完成");
-        stdfoot();	}
-	else
-	{
-		stdhead($lang_news['head_edit_site_news']);
-		begin_main_frame();
-		$body = $arr["body"];
-		$subject = htmlspecialchars($arr['title']);
-		$title = $lang_news['text_edit_site_news'];
-		print("<form id=\"compose\" name=\"compose\" method=\"post\" action=\"".htmlspecialchars("?action=edit&newsid=".$newsid)."\">");
-		print("<input type=\"hidden\" name=\"returnto\" value=\"".$returnto."\" />");
-		begin_compose($title, "edit", $body, true, $subject);
-		print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"no\" />".$lang_news['text_notify_users_of_this']."</td></tr>\n");
-		end_compose();
-		end_main_frame();
-		stdfoot();
-		die;
-	}
+        stdfoot();
+    } else {
+        stdhead($lang_news['head_edit_site_news']);
+        begin_main_frame();
+        $body = $arr["body"];
+        $subject = htmlspecialchars($arr['title']);
+        $title = $lang_news['text_edit_site_news'];
+        print("<form id=\"compose\" name=\"compose\" method=\"post\" action=\"" . htmlspecialchars("?action=edit&newsid=" . $newsid) . "\">");
+        print("<input type=\"hidden\" name=\"returnto\" value=\"" . $returnto . "\" />");
+        begin_compose($title, "edit", $body, true, $subject);
+        print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"no\" />" . $lang_news['text_notify_users_of_this'] . "</td></tr>\n");
+        end_compose();
+        end_main_frame();
+        stdfoot();
+        die;
+    }
 
 }
 
@@ -140,7 +137,7 @@ begin_main_frame();
 $title = $lang_news['text_submit_news_item'];
 print("<form id=\"compose\" method=\"post\" name=\"compose\" action=\"?action=add\">\n");
 begin_compose($title, 'new');
-print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"yes\" />".$lang_news['text_notify_users_of_this']."</td></tr>\n");
+print("<tr><td class=\"toolbox\" align=\"center\" colspan=\"2\"><input type=\"checkbox\" name=\"notify\" value=\"yes\" />" . $lang_news['text_notify_users_of_this'] . "</td></tr>\n");
 end_compose();
 print("</form>");
 end_main_frame();
