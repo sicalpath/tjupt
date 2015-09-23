@@ -2433,7 +2433,10 @@ function userlogin() {
 		$Cache->setClearCache ( 1 );
 	}
 	if ($enablesqldebug_tweak == 'yes' && get_user_class () >= $sqldebug_tweak) {
-		error_reporting ( E_ALL & ~ E_NOTICE );
+		error_reporting ( E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED );
+	}
+	if ($enablesqldebug_tweak == 'yes' && get_user_class () >= UC_SYSOP) {
+		error_reporting ( E_ALL & ~E_NOTICE );
 	}
 }
 

@@ -26,7 +26,7 @@ define ("UC_MODERATOR",13);
 define ("UC_ADMINISTRATOR",14);
 define ("UC_SYSOP",15);
 define ("UC_STAFFLEADER",16);
-error_reporting(E_ERROR | E_PARSE);
+error_reporting(E_ERROR);
 date_default_timezone_set('Asia/Shanghai');
 ini_set('display_errors', 1);
 ignore_user_abort(1);
