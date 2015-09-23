@@ -387,6 +387,9 @@ function format_imdbid($s, $newWindow = false) { // torrents.url
 	global $Cache, $BASEURL;
 	return $s;
 }
+/*
+ * FIXME: All those fucking /e modifiers, much annoyance.
+ */
 function format_comment($text, $strip_html = true, $xssclean = false, $newtab = false, $imageresizer = true, $image_max_width = 700, $enableimage = true, $enableflash = true, $imagenum = -1, $image_max_height = 0, $adid = 0, $enable_size = true) {
 	global $Cache;
 	$cache = ($image_max_width == 700 && $image_max_height == 0 && $newtab == false);
