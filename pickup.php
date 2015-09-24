@@ -8,7 +8,7 @@ function bark($msg) {
 	genbark ( $msg, $lang_pickup ['std_edit_failed'] );
 }
 
-$id = 0 + $_GET ["id"];
+$id = 0 + $_POST ["id"];
 if (! $id)
 	die ();
 
