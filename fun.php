@@ -149,7 +149,7 @@ if ($row["comment"]) print("<div id=\"bottom\"><table width='100%'>" . $row["com
 
 <form action='fun.php#bottom' method='POST' name='funboxcomment'>
     <input type='text' name='fun_text' id='fun_text' size='100' style='width: 750px; border: 1px solid gray;'/>
-    <input type=hidden name=funid value=<? echo $row["id"] ?>>
+    <input type=hidden name=funid value=<?php echo $row["id"] ?>>
     <input type='submit' class='btn' value="评论" name='tofunboxcomment'/></form>
 <?php
 print("</body></html>");
