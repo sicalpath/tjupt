@@ -56,7 +56,7 @@ if($res["answer".$i]!="")$choices[]="<tr><td class=\"text\"  align=\"left\" widt
 shuffle($choices); //乱序排列
 if($notice)print($notice);
 
-?><form action="<? echo str_replace("/","",$_SERVER['PHP_SELF']); ?>" method="post">
+?><form action="<?php echo str_replace("/","",$_SERVER['PHP_SELF']); ?>" method="post">
 <table width="60%" border="1" cellspacing="0" cellpadding="10">
 <tr><td class="text"  align="left" width="100%">请问：<? echo $res["question"]; ?></td></tr>
 <input type="hidden" name="id" value="<? echo $res["id"];?>" />
