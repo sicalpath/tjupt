@@ -251,7 +251,9 @@ function formatMusic($src) {
 	return addTempCode ( "<embed src=\"$src\" loop=false autostart=true name=bgss width=\"400\" height=\"50\">" );
 }
 function format_urls($text, $newWindow = false) {
-	return preg_replace ( "/((https?|ftp|gopher|news|telnet|mms|rtsp):\/\/[^()\[\]<>\s]+)/ei", "formatUrl('\\1', " . ($newWindow == true ? 1 : 0) . ", '', 'faqlink')", $text );
+	return preg_replace_callback ( "/((https?|ftp|gopher|news|telnet|mms|rtsp):\/\/[^()\[\]<>\s]+)/i", function ($matches) use ($newWindow) {
+	    return formatUrl($matches[1], ($newWindow == true ? 1 : 0) , '', 'faqlink');
+	} , $text );
 }
 function format_rid($s, $newWindow = false) { // req.id
 	global $Cache, $BASEURL;
@@ -420,7 +422,10 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 	$s = nl2br ( $s );
 
 	if (strpos ( $s, "[code]" ) !== false && strpos ( $s, "[/code]" ) !== false) {
-		$s = preg_replace ( "/\[code\](.+?)\[\/code\]/eis", "formatCode('\\1')", $s );
+		$s = preg_replace_callback("/\[code\](.+?)\[\/code\]/is", function ($matches)
+		{
+			return formatCode($matches[1]);
+		}, $s);
 	}
 
 	if ($enable_size == false){
@@ -518,12 +523,18 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 
 	if ($enableattach_attachment == 'yes' && $imagenum != 1) {
 		$limit = 50;
-		$s = preg_replace ( "/\[attach\]([0-9a-zA-z][0-9a-zA-z]*)\[\/attach\]/ies", "print_attachment('\\1', " . ($enableimage ? 1 : 0) . ", " . ($imageresizer ? 1 : 0) . ")", $s, $limit );
+		$s = preg_replace_callback ( "/\[attach\]([0-9a-zA-z][0-9a-zA-z]*)\[\/attach\]/is", function ($matches) use($enableimage, $imageresizer) {
+		    return print_attachment($matches[1], ($enableimage ? 1 : 0), ($imageresizer ? 1 : 0));
+		}, $s, $limit );
 	}
 
 	if ($enableimage) {
-		$s = preg_replace ( "/\[img\]([^\<\r\n\"']+?(jpg|png|gif|bmp))\[\/img\]/ei", "formatImg('\\1'," . $imageresizer . "," . $image_max_width . "," . $image_max_height . ")", $s, $imagenum, $imgReplaceCount );
-		$s = preg_replace ( "/\[img=([^\<\r\n\"']+?(jpg|png|gif|bmp))\]/ei", "formatImg('\\1'," . $imageresizer . "," . $image_max_width . "," . $image_max_height . ")", $s, ($imagenum != - 1 ? max ( $imagenum - $imgReplaceCount, 0 ) : - 1) );
+	    $anon_formatImg_Callback = function ($matches) use ($imageresizer, $image_max_width, $image_max_height)
+	    {
+	        return formatImg($matches[1], $imageresizer, $image_max_width, $image_max_height);
+	    };
+		$s = preg_replace_callback("/\[img\]([^\<\r\n\"']+?(jpg|png|gif|bmp))\[\/img\]/i", $anon_formatImg_Callback, $s, $imagenum, $imgReplaceCount);
+		$s = preg_replace_callback("/\[img=([^\<\r\n\"']+?(jpg|png|gif|bmp))\]/i", $anon_formatImg_Callback, $s,  ($imagenum != - 1 ? max ( $imagenum - $imgReplaceCount, 0 ) : - 1) );
 	} else {
 		$s = preg_replace ( "/\[img\]([^\<\r\n\"']+?(jpg|png|gif|bmp))\[\/img\]/i", '', $s, - 1 );
 		$s = preg_replace ( "/\[img=([^\<\r\n\"']+?(jpg|png|gif|bmp))\]/i", '', $s, - 1 );
@@ -534,7 +545,9 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 	                                         // check
 	                                         // if it exist before hand
 		if ($enableflash) {
-			$s = preg_replace ( "/\[flash(\,([1-9][0-9]*)\,([1-9][0-9]*))?\]((http|ftp):\/\/[^\s'\"<>]+(\.(swf)))\[\/flash\]/ei", "formatFlash('\\4', '\\2', '\\3')", $s );
+			$s = preg_replace_callback("/\[flash(\,([1-9][0-9]*)\,([1-9][0-9]*))?\]((http|ftp):\/\/[^\s'\"<>]+(\.(swf)))\[\/flash\]/i", function ($matches){
+			    return formatFlash($matches[4], $matches[2], $matches[3]);
+			}, $s );
 		} else {
 			$s = preg_replace ( "/\[flash(\,([1-9][0-9]*)\,([1-9][0-9]*))?\]((http|ftp):\/\/[^\s'\"<>]+(\.(swf)))\[\/flash\]/i", '', $s );
 		}
@@ -544,7 +557,9 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 	                                       // if
 	                                       // it exist before hand
 		if ($enableflash) {
-			$s = preg_replace ( "/\[flv(\,([1-9][0-9]*)\,([1-9][0-9]*))?\]((http|ftp):\/\/[^\s'\"<>]+(\.(flv)))\[\/flv\]/ei", "formatFlv('\\4', '\\2', '\\3')", $s );
+			$s = preg_replace_callback ( "/\[flv(\,([1-9][0-9]*)\,([1-9][0-9]*))?\]((http|ftp):\/\/[^\s'\"<>]+(\.(flv)))\[\/flv\]/i",function ($matches){
+			    return formatFlv($matches[4], $matches[2], $matches[3]);
+			}, $s );
 		} else {
 			$s = preg_replace ( "/\[flv(\,([1-9][0-9]*)\,([1-9][0-9]*))?\]((http|ftp):\/\/[^\s'\"<>]+(\.(flv)))\[\/flv\]/i", '', $s );
 		}
@@ -554,17 +569,28 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 	                                          // check
 	                                          // if it exist before hand
 
-		$s = preg_replace ( "/\[music\]((http|ftp):\/\/[^\s'\"<>]+(\.(mp3|wma)))\[\/music\]/ei", "formatMusic('\\1')", $s );
+		$s = preg_replace_callback ( "/\[music\]((http|ftp):\/\/[^\s'\"<>]+(\.(mp3|wma)))\[\/music\]/i", function ($matches){
+		    return formatMusic($matches[1]);
+		}, $s );
 	}
 	// [url=http://www.example.com]Text[/url]
-	if ($adid) {
-		$s = preg_replace ( "/\[url=([^\[\s\"'\(\)]+?)\](.+?)\[\/url\]/ei", "formatAdUrl(" . $adid . " ,'\\1', '\\2', " . ($newtab == true ? 1 : 0) . ", 'faqlink')", $s );
-	} else {
-		$s = preg_replace ( "/\[url=([^\[\s\"'\(\)]+?)\](.+?)\[\/url\]/ei", "formatUrl('\\1', " . ($newtab == true ? 1 : 0) . ", '\\2', 'faqlink')", $s );
-	}
+	$anon_formatUrl_Callback_with_adid = function ($matches) use ($adid, $newtab)
+	{
+	    if ($adid)
+	    {
+	        return formatAdUrl($adid, $matches[1], $matches[2], ($newtab == true ? 1 : 0));
+	    }
+	    else
+	    {
+	        return formatUrl($matches[1], ($newtab == true ? 1 : 0), $matches[2], 'faqlink');
+	    }
+	};
+	$s = preg_replace_callback("/\[url=([^\[\s\"'\(\)]+?)\](.+?)\[\/url\]/i", $anon_formatUrl_Callback_with_adid, $s);
 
 	// [url]http://www.example.com[/url]
-	$s = preg_replace ( "/\[url\]([^\[\s\"'\(\)]+?)\[\/url\]/ei", "formatUrl('\\1', " . ($newtab == true ? 1 : 0) . ", '', 'faqlink')", $s );
+	$s = preg_replace_callback ( "/\[url\]([^\[\s\"'\(\)]+?)\[\/url\]/i", function ($matches) use ($newtab) {
+        return formatUrl($matches[1], ($newtab == true ? 1 : 0), '','faqlink');
+	}, $s );
 
 	$s = format_urls ( $s, $newtab );
 
@@ -607,8 +633,19 @@ function format_comment($text, $strip_html = true, $xssclean = false, $newtab = 
 	                                                                                // beforehand
 		$s = format_quotes ( $s );
 	}
-	global $smiles;
-	$s = preg_replace ( "/\[em([0-9][0-9]*)\]/ie", "(\\1 <= $smiles ? '<img src=\"pic/smilies/\\1.gif\" alt=\"[em\\1]\" />' : '[em\\1]')", $s );
+
+	$s = preg_replace_callback ( "/\[em([0-9][0-9]*)\]/i", function ($matches)
+	{
+        global $smiles;
+        if ($matches[1] <= $smiles)
+        {
+            return "<img src=\"pic/smilies/$matches[1].gif\" alt=\"[em$matches[1]]\" />";
+        }
+        else
+        {
+            return "[em$matches[1]]";
+        }
+	}, $s );
 
 	// @ to link
 	if (strpos ( $s, "@" ) !== false) {
@@ -6291,7 +6328,7 @@ function check_tjuip($nip)
 // ***********************************************//检查纯表情
 function check_emotion($text)
 	{
-		$checker=trim(preg_replace("/\[em([0-9][0-9]*)\]/ie","",$text));
+		$checker=trim(preg_replace("/\[em([0-9][0-9]*)\]/i","",$text));
 		if(strlen($checker) < 4)
 		return 1;
 		else return 0;
