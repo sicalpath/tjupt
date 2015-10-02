@@ -58,7 +58,7 @@ begin_main_frame("",false);
 <form method="post" action="addcss.php">
 <textarea name='body' style="width: 98%;height:300px"><?php echo $textarea ?></textarea><br />
 <input type="submit" name="ok" value="修改" /><input type="submit" name="test" value="测试三分钟"><input type="submit" name="delete" value="删除"><br />
-<?/*<input type="text" name="useridcss" /><input type="submit" name="find" value="查看左侧ID用户的CSS样式列表">*/?>
+<?php /*<input type="text" name="useridcss" /><input type="submit" name="find" value="查看左侧ID用户的CSS样式列表">*/?>
 
 </form>
 
