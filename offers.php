@@ -1456,7 +1456,10 @@ print ("<li>" . $lang_offers ['text_rule_five'] . "</li>\n") ;
 print ("<li>" . $lang_offers ['text_rule_seven'] . "</li>\n") ;
 print ("</ul></div>") ;
 if (get_user_class () >= $addoffer_class)
+{
 	print ("<div align=\"center\" style=\"margin-bottom: 8px;\"><a href=\"?add_offer=1\">" . "<b>" . $lang_offers ['text_add_offer'] . "</b></a></div>") ;
+	print ("<div align=\"center\" style=\"color: red\">务必上传文件目录截图，要求能完整的看到文件名，否则一律删除候选!</div>");
+}
 print ("<div align=\"center\"><form method=\"get\" action=\"?\">" . $lang_offers ['text_search_offers'] . "&nbsp;&nbsp;<input type=\"text\" id=\"specialboxg\" name=\"search\" />&nbsp;&nbsp;") ;
 $cats = genrelist ( $browsecatmode );
 $catdropdown = "";
