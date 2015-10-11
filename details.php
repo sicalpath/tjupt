@@ -697,30 +697,6 @@ else {
 				tr ( "<a href=\"javascript: klappe_news('othercopy')\"><span class=\"nowrap\"><img class=\"" . ($copies_count > 5 ? "plus" : "minus") . "\" src=\"pic/trans.gif\" alt=\"Show/Hide\" id=\"picothercopy\" title=\"" . $lang_detail ['title_show_or_hide'] . "\" /> " . $lang_details ['row_other_copies'] . "</span></a>", "<b>" . $copies_count . $lang_details ['text_other_copies'] . " </b><br /><div id='kothercopy' style=\"" . ($copies_count > 5 ? "display: none;" : "display: block;") . "\">" . $s . "</div>", 1 );
 			}
 		}
-		$relation_res = sql_query ( "SELECT torrents.* FROM torrent_relation tr LEFT JOIN torrents ON torrents.id = tr.torrentid1 + tr.torrentid2 - '{$row['id']}' WHERE (tr.torrentid1 = {$row['id']} OR tr.torrentid2 = {$row['id']}) AND torrents.pulling_out = 0 ORDER BY tr.ratio DESC LIMIT 0, 10" ) or sqlerr ( __FILE__, __LINE__ );
-		$relation_count = mysql_num_rows ( $relation_res );
-		if ($relation_count > 0) {
-			$s = "<table border=\"1\" cellspacing=\"0\" cellpadding=\"5\">\n";
-			$s .= "<tr><td class=\"colhead\" style=\"padding: 0px; text-align:center;\">" . $lang_details ['col_type'] . "</td><td class=\"colhead\" align=\"left\">" . $lang_details ['col_name'] . "</td><td class=\"colhead\" align=\"center\"><img class=\"size\" src=\"pic/trans.gif\" alt=\"size\" title=\"" . $lang_details ['title_size'] . "\" /></td><td class=\"colhead\" align=\"center\"><img class=\"time\" src=\"pic/trans.gif\" alt=\"time added\" title=\"" . $lang_details ['title_time_added'] . "\" /></td><td class=\"colhead\" align=\"center\"><img class=\"seeders\" src=\"pic/trans.gif\" alt=\"seeders\" title=\"" . $lang_details ['title_seeders'] . "\" /></td><td class=\"colhead\" align=\"center\"><img class=\"leechers\" src=\"pic/trans.gif\" alt=\"leechers\" title=\"" . $lang_details ['title_leechers'] . "\" /></td></tr>\n";
-			while ( $copy_row = mysql_fetch_assoc ( $relation_res ) ) {
-				$dispname = htmlspecialchars ( trim ( $copy_row ["name"] ) );
-				$count_dispname = strlen ( $dispname );
-				$max_lenght_of_torrent_name = "80"; // maximum lenght
-				if ($count_dispname > $max_lenght_of_torrent_name) {
-					// $dispname = substr ( $dispname, 0,
-					// $max_lenght_of_torrent_name ) . "..";
-					$dispname = mb_strcut ( $dispname, 0, $max_lenght_of_torrent_name - 2, 'utf-8' ) . "..";
-				}
-
-				$sphighlight = get_torrent_bg_color ( $copy_row ['sp_state'] );
-				$sp_info = get_torrent_promotion_append ( $copy_row ['sp_state'] );
-
-				$s .= "<tr" . $sphighlight . "><td class=\"rowfollow nowrap\" valign=\"middle\" style='padding: 0px'>" . return_category_image ( $copy_row ["category"], "torrents.php?allsec=1&amp;" ) . "</td><td class=\"rowfollow\" align=\"left\"><a href=\"" . htmlspecialchars ( "details.php?id=" . $copy_row ["id"] . "&hit=1" ) . "\">" . $dispname . "</a>" . $sp_info . "</td>" . "<td class=\"rowfollow\" align=\"center\">" . mksize ( $copy_row ["size"] ) . "</td>" . "<td class=\"rowfollow nowrap\" align=\"center\">" . str_replace ( "&nbsp;", "<br />", gettime ( $copy_row ["added"], false ) ) . "</td>" . "<td class=\"rowfollow\" align=\"center\">" . $copy_row ["seeders"] . "</td>" . "<td class=\"rowfollow\" align=\"center\">" . $copy_row ["leechers"] . "</td>" . "</tr>\n";
-			}
-			$s .= "</table>\n";
-			tr ( "<a href=\"javascript: klappe_news('related')\"><span class=\"nowrap\"><img class=\"" . ($relation_count > 10 ? "plus" : "minus") . "\" src=\"pic/trans.gif\" alt=\"Show/Hide\" id=\"picrelated\" title=\"" . $lang_detail ['title_show_or_hide'] . "\" /> 相关资源推荐</span></a>", "<b>" . $relation_count . "个相关资源 </b><br /><div id='krelated' style=\"" . ($relation_count > 10 ? "display: none;" : "display: block;") . "\">" . $s . "</div>", 1 );
-		}
-
 		if ($row ["type"] == "multi") {
 			$files_info = "<b>" . $lang_details ['text_num_files'] . "</b>" . $row ["numfiles"] . $lang_details ['text_files'] . "<br />";
 			$files_info .= "<span id=\"showfl\"><a href=\"javascript: viewfilelist(" . $id . ")\" >" . $lang_details ['text_see_full_list'] . "</a></span><span id=\"hidefl\" style=\"display: none;\"><a href=\"javascript: hidefilelist()\">" . $lang_details ['text_hide_list'] . "</a></span>";
