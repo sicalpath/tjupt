@@ -96,7 +96,8 @@ function check_cheater($userid, $username, $torrentid, $uploaded, $downloaded, $
         err("由于存在作弊行为，你的帐号已被禁用！");
         return true;
     }
-    if ($uploaded > 1073741824 && $upspeed > (13107200 / $cheaterdet_security)) //Uploaded more than 1 GB with uploading rate higher than 10 MByte/S (For Consertive level). This is likely cheating.
+    if ($uploaded > 1073741824 && $upspeed > (15728640 / $cheaterdet_security))
+        //Uploaded more than 1 GB with uploading rate higher than 15 MByte/S (For Consertive level). This is likely cheating.
     {
         $secs = 24 * 60 * 60; //24 hours
         $dt = sqlesc(date("Y-m-d H:i:s", (strtotime(date("Y-m-d H:i:s")) - $secs))); // calculate date.
