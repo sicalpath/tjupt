@@ -151,7 +151,7 @@ elseif($catid == "406"){
 	tr_textcheckbox("音乐类别","specificcat","cathq");	
 	tr_textcheckbox("音乐文件格式","format","formathqaudio",$star);	
 	tr_textcheckbox("音乐语言","language","langhq");	
-	tr_textcheckbox("音质/码率","hqtone","hqtone");	
+	tr_textcheckbox("音质/码率/分辨率","hqtone","hqtone");
 }	
 elseif($catid == "407"){
 	tr_uploadinfo("体育","forums.php?action=viewtopic&forumid=5&topicid=59");
