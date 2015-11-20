@@ -4209,6 +4209,13 @@ function torrenttable($res, $variant = "torrent") {
 		else
 			print ("<td class=\"rowfollow\">" . number_format ( $row ["times_completed"] ) . "</td>\n") ;
 
+        // game on 11-18-2015
+        if (time()>1447776000 && time()<1447862400)
+        {
+            $row['anonymous'] = 'yes';
+        }
+        // that's the game
+
 		if ($row ["anonymous"] == "yes" && get_user_class () >= $torrentmanage_class) {
 			print ("<td class=\"rowfollow\" align=\"center\"><i>" . $lang_functions ['text_anonymous'] . "</i><br />" . (isset ( $row ["owner"] ) ? "(" . get_username ( $row ["owner"] ) . ")" : "<i>" . $lang_functions ['text_orphaned'] . "</i>") . "</td>\n") ;
 		} elseif ($row ["anonymous"] == "yes") {

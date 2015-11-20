@@ -66,6 +66,12 @@ else {
 		$editlink = "a title=\"" . $lang_details ['title_edit_torrent'] . "\" href=\"$url\"";
 
 		// ------------- start upped by block ------------------//
+		// game on 11-18-2015
+        if (time()>1447776000 && time()<1447862400)
+        {
+            $row['anonymous'] = 'yes';
+        }
+        // that's the game
 		if ($row ['anonymous'] == 'yes') {
 			if (get_user_class () < $viewanonymous_class)
 				$uprow = "<i>" . $lang_details ['text_anonymous'] . "</i>";
