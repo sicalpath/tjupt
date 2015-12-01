@@ -109,7 +109,11 @@ if ($nip) { // $nip would be false for IPv6 address
 		err ( "004-您正在使用校外IP下载(" . $ip . ")，为了避免给校内用户带来流量负担，我们阻止了您本次的下载请求！" );
 		// die;
 	}
-	
+
+	if ($nip == 3396406700) // 202.113.13.172
+	{
+		err ( "403-不允许使用代理服务器访问！" );
+	}
 	$ipv4 = $ip;
 } elseif (! validateIPv6 ( $ip )) { // 校验IP地址的合法性
 	err ( "403-IP地址不合法，请与PTadmin@tju.edu.联系！" );
