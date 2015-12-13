@@ -801,7 +801,7 @@ else {
 					$time = strtotime ( "next week Sunday" );
 				$log_admin ['time'] ['at'] = strtotime ( "now" );
 				$log_admin ['time'] ['until'] = $time;
-				$time -= strtotime ( "now" );
+				$time -= strtotime ( "now" ) + 86400;
 				$Cache->cache_value ( 'log_admin_new', $log_admin, $time );
 			}
 			foreach ( $usernames as $user ) {
