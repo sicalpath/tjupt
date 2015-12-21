@@ -339,7 +339,7 @@ if ($action == "exchange") {
 					$retluckbonus = $retluckbonus2;
 				}
 			}
-			$sqlluckbonus = $retluckbonus - $luckbonus;
+			$sqlluckbonus = round($retluckbonus - $luckbonus, 1);
 			
 			sql_query ( "UPDATE users SET seedbonus = seedbonus + $sqlluckbonus WHERE id = " . sqlesc ( $userid ) ) or sqlerr ( __FILE__, __LINE__ );
 			if ($sqlluckbonus > 0)
