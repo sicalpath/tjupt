@@ -4285,7 +4285,7 @@ function get_username($id, $big = false, $link = true, $bold = true, $target = f
 			$style = "style='margin-left: 2pt'";
 		}
         $pics = '';
-		if ($arr["class"] == 15)
+		if ($arr["class"] == "15")
 		{
 			$pics .= '<i class="fa fa-wrench"></i>';
 		}
