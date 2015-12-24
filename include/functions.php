@@ -4302,7 +4302,12 @@ function get_username($id, $big = false, $link = true, $bold = true, $target = f
 			$link_ext .= ' style="' . $name_style . '"';
 		}
 
-		$username = ($underline == true ? "<u>" . $arr ['username'] . "</u>" : $arr ['username']);
+        if($underline)
+        {
+            $username = '<span style="text-decoration: underline;">'.$arr ['username'].'</span>';
+        } else {
+            $username = '<span style="text-decoration: none;">'.$arr ['username'].'</span>';
+        }
 		$username = ($bold == true ? "<b>" . $username . "</b>" : $username);
 		$username = ($link == true ? "<a " . $link_ext . " href=\"userdetails.php?id=" . $id . "\"" . ($target == true ? " target=\"_blank\"" : "") . " class='" . get_user_class_name ( $arr ['class'], true ) . "_Name'>" . $username . "</a>" : $username) . $pics . ($withtitle == true ? " (" . ($arr ['title'] == "" ? "<span " . $link_ext . " class='" . get_user_class_name ( $arr ['class'], true ) . "_Name'><b>" . get_user_class_name ( $arr ['class'] ) . "</b></span>" : "<span " . $link_ext . " class='" . get_user_class_name ( $arr ['class'], true ) . "_Name'><b>" . htmlspecialchars ( $arr ['title'] )) . "</b></span>)" : "");
 
