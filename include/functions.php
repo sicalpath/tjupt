@@ -3315,7 +3315,7 @@ function stdfoot() {
 	$year = substr ( $datefounded, 0, 4 );
 	$yearfounded = ($year ? $year : 2007);
 	print (" (c) " . " <a href=\"" . get_protocol_prefix () . $BASEURL . "\" target=\"_self\">" . $SITENAME . "</a> " . ($icplicense_main ? " " . $icplicense_main . " " : "") . (date ( "Y" ) != $yearfounded ? $yearfounded . "-" : "") . date ( "Y" ) . " " . VERSION . "<br /><br />") ;
-	print ("tjupt-TJUPT_GIT_REVISION_HASH<br /><br />");
+	print ("TJUPT Version: tjupt-git-TJUPT_GIT_REVISION_HASH<br /><br />");
 	print ("All rights reserved. 天外天工作室 天津大学信网协会 版权所有<br /><br />") ;
 	printf ( "[page created in <b> %f </b> sec", $totaltime );
 	print (" with <b>" . count ( $query_name ) . "</b> db queries, <b>" . $Cache->getCacheReadTimes () . "</b> reads and <b>" . $Cache->getCacheWriteTimes () . "</b> writes of memcached and <b>" . mksize ( memory_get_usage () ) . "</b> ram]") ;
