@@ -4284,12 +4284,18 @@ function get_username($id, $big = false, $link = true, $bold = true, $target = f
 			$disabledpic = "disabled";
 			$style = "style='margin-left: 2pt'";
 		}
-		$pics = $arr ["donor"] == "yes" ? "<img class=\"" . $donorpic . "\" src=\"pic/trans.gif\" alt=\"Donor\" " . $style . " />" : "";
+		if ($arr["class"] == 15)
+		{
+			$pics = '<i class="fa fa-wrench"></i>';
+		}
+		$pics .= $arr ["donor"] == "yes" ? "<img class=\"" . $donorpic . "\" src=\"pic/trans.gif\" alt=\"Donor\" " . $style . " />" : "";
 
 		if ($arr ["enabled"] == "yes")
 			$pics .= ($arr ["leechwarn"] == "yes" ? "<img class=\"" . $leechwarnpic . "\" src=\"pic/trans.gif\" alt=\"Leechwarned\" " . $style . " />" : "") . ($arr ["warned"] == "yes" ? "<img class=\"" . $warnedpic . "\" src=\"pic/trans.gif\" alt=\"Warned\" " . $style . " />" : "");
 		else
 			$pics .= "<img class=\"" . $disabledpic . "\" src=\"pic/trans.gif\" alt=\"Disabled\" " . $style . " />\n";
+
+
 
 		$name_style = '';
 		if ($arr ["color"] != "000000") {
