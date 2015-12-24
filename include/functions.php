@@ -2903,7 +2903,7 @@ function stdhead($title = "", $msgalert = true, $script = "", $place = "") {
 <link rel="stylesheet"
 	href="/styles/curtain_imageresizer.css<?php echo $cssupdatedate?>"
 	type="text/css" />
-
+<link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css" type="text/css" />
 <?php
 	if (userccss ())
 		print (userccss ()) ;
