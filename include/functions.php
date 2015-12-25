@@ -4226,8 +4226,8 @@ function torrenttable($res, $variant = "torrent") {
 		}
 
 		if (get_user_class () >= $torrentmanage_class) {
-			print ("<td class=\"rowfollow\"><a href=\"" . htmlspecialchars ( "fastdelete.php?id=" . $row [id] ) . "\"><img class=\"staff_delete\" src=\"pic/trans.gif\" alt=\"D\" title=\"" . $lang_functions ['text_delete'] . "\" /></a>") ;
-			print ("<br /><a href=\"edit.php?returnto=" . rawurlencode ( $_SERVER ["REQUEST_URI"] ) . "&amp;id=" . $row ["id"] . "\"><img class=\"staff_edit\" src=\"pic/trans.gif\" alt=\"E\" title=\"" . $lang_functions ['text_edit'] . "\" /></a></td>\n") ;
+			print ("<td class=\"rowfollow\"><a href=\"" . htmlspecialchars ( "fastdelete.php?id=" . $row [id] ) . "\"><i class=\"staff_delete fa fa-trash fa-2x\" alt=\"D\" title=\"" . $lang_functions ['text_delete'] . "\"></i></a>") ;
+			print ("<br /><a href=\"edit.php?returnto=" . rawurlencode ( $_SERVER ["REQUEST_URI"] ) . "&amp;id=" . $row ["id"] . "\"><i class=\"staff_edit fa fa-edit fa-2x\" alt=\"E\" title=\"" . $lang_functions ['text_edit'] . "\"></i></a></td>\n") ;
 		}
 		print ("</tr>\n") ;
 		$counter ++;
