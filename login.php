@@ -69,7 +69,18 @@ elseif ($securetracker == "op")
 ?>
 
 <tr><td class="toolbox" colspan="2" align="left"><?php echo $lang_login['text_advanced_options']?></td></tr>
-<tr><td class="rowhead"><?php echo $lang_login['text_auto_logout']?></td><td class="rowfollow" align="left"><select name="logout" ><option value="off" ><?php echo $lang_login['off']?></option><option value="1day" ><?php echo $lang_login['1day']?><option value="7days" selected ><?php echo $lang_login['7days']?></option><option value="14days" ><?php echo $lang_login['14days']?></option><!--<option value="30days" ><?php echo $lang_login['30days']?></option><option value="365days" ><?php echo $lang_login['365days']?></option><option value="forever" ><?php echo $lang_login['forever']?></option>--></select></td></tr>
+<tr><td class="rowhead"><?php echo $lang_login['text_auto_logout']?></td><td class="rowfollow" align="left">
+		<select name="logout" >
+            <option value="off" ><?php echo $lang_login['off']?></option>
+            <option value="1day" ><?php echo $lang_login['1day']?></option>
+            <option value="7days" selected ><?php echo $lang_login['7days']?></option>
+            <option value="14days" ><?php echo $lang_login['14days']?></option>
+            <option value="30days" ><?php echo $lang_login['30days']?></option>
+            <option value="365days" ><?php echo $lang_login['365days']?></option>
+            <option value="forever" ><?php echo $lang_login['forever']?></option>
+        </select>
+    </td>
+</tr>
 <tr><td class="rowhead"><?php echo $lang_login['text_restrict_ip']?></td><td class="rowfollow" align="left"><input class="checkbox" type="checkbox" name="securelogin" value="yes" /><?php echo $lang_login['checkbox_restrict_ip']?></td></tr>
 <?php /*
 <tr><td class="rowhead"><?php echo $lang_login['text_ssl']?></td><td class="rowfollow" align="left"><input class="checkbox" type="checkbox" name="ssl" value="yes" <?php echo $sec?> /><?php echo $lang_login['checkbox_ssl']?><br /><input class="checkbox" type="checkbox" name="trackerssl" value="yes" <?php echo $sectra?> /><?php echo $lang_login['checkbox_ssl_tracker']?></td></tr>
