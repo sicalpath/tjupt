@@ -71,18 +71,18 @@ if ($_GET['sort'] && $_GET['type']) {
 
 	if($column == "owner")
 	{
-		$orderby = "ORDER BY pos_state DESC, torrents.anonymous, users.username " . $ascdesc;
+		$orderby = "ORDER BY pos_state DESC, torrents_c.anonymous, users.username " . $ascdesc;
 	}
 	else
 	{
-		$orderby = "ORDER BY pos_state DESC, torrents." . $column . " " . $ascdesc;
+		$orderby = "ORDER BY pos_state DESC, torrents_c." . $column . " " . $ascdesc;
 	}
 
 	$pagerlink = "sort=" . intval($_GET['sort']) . "&type=" . $linkascdesc . "&";
 
 } else {
 
-	$orderby = "ORDER BY pos_state DESC, torrents.id DESC";
+	$orderby = "ORDER BY pos_state DESC, torrents_c.id DESC";
 	$pagerlink = "";
 
 }
@@ -134,13 +134,13 @@ elseif ($inclbookmarked == 1)		//bookmarked
 {
 	$addparam .= "inclbookmarked=1&";
 	if(isset($CURUSER))
-	$wherea[] = "torrents.id IN (SELECT torrentid FROM bookmarks WHERE userid=" . $CURUSER['id'] . ")";
+	$wherea[] = "torrents_c.id IN (SELECT torrentid FROM bookmarks WHERE userid=" . $CURUSER['id'] . ")";
 }
 elseif ($inclbookmarked == 2)		//not bookmarked
 {
 	$addparam .= "inclbookmarked=2&";
 	if(isset($CURUSER))
-	$wherea[] = "torrents.id NOT IN (SELECT torrentid FROM bookmarks WHERE userid=" . $CURUSER['id'] . ")";
+	$wherea[] = "torrents_c.id NOT IN (SELECT torrentid FROM bookmarks WHERE userid=" . $CURUSER['id'] . ")";
 }
 // ----------------- end bookmarked ---------------------//
 
@@ -356,6 +356,10 @@ elseif ($special_state == 8)	//30% down
 }
 
 $category_get = 0 + $_GET["cat"];
+if($category_get == 406)
+{
+	$category_get = 0;
+}
 if ($showsubcat){
 if ($showsource) $source_get = 0 + $_GET["source"];
 if ($showmedium) $medium_get = 0 + $_GET["medium"];
@@ -845,7 +849,7 @@ return $char;
 		case 0   :	// torrent name
 		{
 			foreach ($like_expression_array as &$like_expression_array_element)
-			$like_expression_array_element = "(torrents.name" . gbk2big($like_expression_array_element).(gbk2big($like_expression_array_element)==big2gbk($like_expression_array_element)?"":" ".( strstr($like_expression_array_element,"NOT LIKE")?"AND":"OR")." torrents.name" . big2gbk($like_expression_array_element) )." )";
+			$like_expression_array_element = "(torrents_c.name" . gbk2big($like_expression_array_element).(gbk2big($like_expression_array_element)==big2gbk($like_expression_array_element)?"":" ".( strstr($like_expression_array_element,"NOT LIKE")?"AND":"OR")." torrents_c.name" . big2gbk($like_expression_array_element) )." )";
 			
 			//我们没有副标题
 //			$like_expression_array_element = "(torrents.name" . gbk2big($like_expression_array_element)." OR torrents.small_descr". gbk2big($like_expression_array_element)." OR torrents.name" . big2gbk($like_expression_array_element)." OR torrents.small_descr". big2gbk($like_expression_array_element)." )";
@@ -855,7 +859,7 @@ return $char;
 		case 1	:	// torrent description
 		{
 			foreach ($like_expression_array as &$like_expression_array_element)
-			$like_expression_array_element = "( torrents.descr". big2gbk($like_expression_array_element).(gbk2big($like_expression_array_element)==big2gbk($like_expression_array_element)?"":( substr($searchstr_element,0,1)=='!'?" AND ":" OR ")."torrents.descr". gbk2big($like_expression_array_element) ).")";
+			$like_expression_array_element = "( torrents_c.descr". big2gbk($like_expression_array_element).(gbk2big($like_expression_array_element)==big2gbk($like_expression_array_element)?"":( substr($searchstr_element,0,1)=='!'?" AND ":" OR ")."torrents_c.descr". gbk2big($like_expression_array_element) ).")";
 			$wherea[] = implode($ANDOR,  $like_expression_array);
 			break;
 		}
@@ -873,7 +877,7 @@ return $char;
 
 			if(!isset($CURUSER))	// not registered user, only show not anonymous torrents
 			{
-				$wherea[] =  "(".implode($ANDOR, $like_expression_array).") AND torrents.anonymous = 'no' ";
+				$wherea[] =  "(".implode($ANDOR, $like_expression_array).") AND torrents_c.anonymous = 'no' ";
 			}
 			else
 			{
@@ -883,7 +887,7 @@ return $char;
 				}
 				else // only show normal torrents and anonymous torrents from hiself
 				{
-					$wherea[] =   "( (" .implode($ANDOR, $like_expression_array)." ) AND torrents.anonymous = 'no' ) OR ( ( ". implode($ANDOR, $like_expression_array)." ) AND torrents.anonymous = 'yes' AND users.id=" . $CURUSER["id"] . " )";
+					$wherea[] =   "( (" .implode($ANDOR, $like_expression_array)." ) AND torrents_c.anonymous = 'no' ) OR ( ( ". implode($ANDOR, $like_expression_array)." ) AND torrents_c.anonymous = 'yes' AND users.id=" . $CURUSER["id"] . " )";
 				}
 			}
 			break;
@@ -891,14 +895,14 @@ return $char;
 		case 4  :  //imdb url
 		{
 			foreach ($like_expression_array as &$like_expression_array_element)
-			$like_expression_array_element = "torrents.url". $like_expression_array_element;
+			$like_expression_array_element = "torrents_c.url". $like_expression_array_element;
 			$wherea[] = implode($ANDOR,  $like_expression_array);
 			break;
 		}
 		default :	// unkonwn
 		{
 			$search_area = 0;
-			$wherea[] =  "torrents.name LIKE '%" . $searchstr . "%'";
+			$wherea[] =  "torrents_c.name LIKE '%" . $searchstr . "%'";
 			write_log("User " . $CURUSER["username"] . "," . $CURUSER["ip"] . " is hacking search_area field in" . $_SERVER['SCRIPT_NAME'], 'mod');
 			break;
 		}
@@ -942,14 +946,14 @@ if ($allsec == 1 || $enablespecial != 'yes')//取出非试种数
 	if ($where != "")
 		$where = "WHERE $where ";//AND torrents.category <413commented bt pirateutopia
 	//else $where = "WHERE torrents.category <413";  
-	$sql = "SELECT COUNT(*) FROM torrents " . ($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents.owner = users.id " : "") . $where; 
+	$sql = "SELECT COUNT(*) FROM torrents_c " . ($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents_c.owner = users.id " : "") . $where;
 }
 else
 {
 	if ($where != "")
 		$where = "WHERE $where AND categories.mode = '$sectiontype'";
 	else $where = "WHERE categories.mode = '$sectiontype'";
-	$sql = "SELECT COUNT(*), categories.mode FROM torrents LEFT JOIN categories ON category = categories.id " . ($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents.owner = users.id " : "") . $where." GROUP BY categories.mode";//取出非试种数
+	$sql = "SELECT COUNT(*), categories.mode FROM torrents_c LEFT JOIN categories ON category = categories.id " . ($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents_c.owner = users.id " : "") . $where." GROUP BY categories.mode";//取出非试种数
 }
 $res = sql_query($sql) or die(mysql_error());
 $count = 0;
@@ -992,10 +996,10 @@ if ($count)
 
 	list($pagertop, $pagerbottom, $limit) = pager($torrentsperpage, $count, "?" . $addparam);
 if ($allsec == 1 || $enablespecial != 'yes'){
-	$query = "SELECT torrents.id, torrents.sp_state, torrents.promotion_time_type, torrents.promotion_until, torrents.banned, torrents.picktype, torrents.pos_state, torrents.category, torrents.source, torrents.medium, torrents.codec, torrents.standard, torrents.processing, torrents.team, torrents.audiocodec, torrents.leechers, torrents.seeders, torrents.name, torrents.small_descr, torrents.times_completed, torrents.size, torrents.added,torrents.sp_time, torrents.comments,torrents.anonymous,torrents.owner,torrents.url,torrents.cache_stamp, torrents.needkeepseed, torrents.pos_state_until, torrents.imdb_rating FROM torrents ".($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents.owner = users.id " : "")." $where $orderby $limit";//取出非试 AND torrents.category <413种
+	$query = "SELECT torrents_c.id, torrents_c.sp_state, torrents_c.promotion_time_type, torrents_c.promotion_until, torrents_c.banned, torrents_c.picktype, torrents_c.pos_state, torrents_c.category, torrents_c.source, torrents_c.medium, torrents_c.codec, torrents_c.standard, torrents_c.processing, torrents_c.team, torrents_c.audiocodec, torrents_c.leechers, torrents_c.seeders, torrents_c.name, torrents_c.small_descr, torrents_c.times_completed, torrents_c.size, torrents_c.added,torrents_c.sp_time, torrents_c.comments,torrents_c.anonymous,torrents_c.owner,torrents_c.url,torrents_c.cache_stamp, torrents_c.needkeepseed, torrents_c.pos_state_until, torrents_c.imdb_rating FROM torrents_c ".($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents_c.owner = users.id " : "")." $where $orderby $limit";//取出非试 AND torrents.category <413种
 }
 else{
-	$query = "SELECT torrents.id, torrents.sp_state, torrents.promotion_time_type, torrents.promotion_until, torrents.banned, torrents.picktype, torrents.pos_state, torrents.category, torrents.source, torrents.medium, torrents.codec, torrents.standard, torrents.processing, torrents.team, torrents.audiocodec, torrents.leechers, torrents.seeders, torrents.name, torrents.small_descr, torrents.times_completed, torrents.size, torrents.added,torrents.sp_time, torrents.comments,torrents.anonymous,torrents.owner,torrents.url,torrents.cache_stamp, torrents.pos_state_until, torrents.imdb_rating FROM torrents ".($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents.owner = users.id " : "")." LEFT JOIN categories ON torrents.category=categories.id $where $orderby $limit";
+	$query = "SELECT torrents_c.id, torrents_c.sp_state, torrents_c.promotion_time_type, torrents_c.promotion_until, torrents_c.banned, torrents_c.picktype, torrents_c.pos_state, torrents_c.category, torrents_c.source, torrents_c.medium, torrents_c.codec, torrents_c.standard, torrents_c.processing, torrents_c.team, torrents_c.audiocodec, torrents_c.leechers, torrents_c.seeders, torrents_c.name, torrents_c.small_descr, torrents_c.times_completed, torrents_c.size, torrents_c.added,torrents_c.sp_time, torrents_c.comments,torrents_c.anonymous,torrents_c.owner,torrents_c.url,torrents_c.cache_stamp, torrents_c.pos_state_until, torrents_c.imdb_rating FROM torrents_c ".($search_area == 3 || $column == "owner" ? "LEFT JOIN users ON torrents_c.owner = users.id " : "")." LEFT JOIN categories ON torrents_c.category=categories.id $where $orderby $limit";
 }//取出非试种 AND torrents.category <413
 
 	$res = sql_query($query) or die(mysql_error());
