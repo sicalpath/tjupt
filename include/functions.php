@@ -3811,7 +3811,7 @@ function torrenttable($res, $variant = "torrent") {
 		$res_seeding = sql_query ( "SELECT torrent FROM peers WHERE userid=" . ($CURUSER ["id"]) . " AND seeder='yes'" ) or sqlerr ();
 		$res_leeching = sql_query ( "SELECT peers.torrent AS torrent, torrents_c.size AS size, snatched.to_go AS to_go FROM peers LEFT JOIN torrents_c ON peers.torrent = torrents_c.id LEFT JOIN snatched ON torrents_c.id = snatched.torrentid WHERE peers.userid=" . ($CURUSER ["id"]) . " AND snatched.userid = " . ($CURUSER ["id"]) . " AND peers.seeder='no'" ) or sqlerr ();
 		$res_completed = sql_query ( "SELECT torrents_c.id AS torrent FROM torrents_c LEFT JOIN snatched ON torrents_c.id = snatched.torrentid WHERE snatched.finished='yes' AND userid=" . ($CURUSER ["id"]) . " AND torrents_c.owner != " . ($CURUSER ["id"]) . " ORDER BY snatched.completedat DESC" ) or sqlerr ();
-		$res_incomplete = sql_query ( "SELECT torrents_c.id AS torrent, torrents_c.size AS size, snatched.to_go AS to_go FROM torrents_c LEFT JOIN snatched ON torrents.id = snatched.torrentid WHERE snatched.finished='no' AND userid=" . ($CURUSER ["id"]) . " AND torrents.owner != " . ($CURUSER ["id"]) . " ORDER BY snatched.startdat DESC" ) or sqlerr ();
+		$res_incomplete = sql_query ( "SELECT torrents_c.id AS torrent, torrents_c.size AS size, snatched.to_go AS to_go FROM torrents_c LEFT JOIN snatched ON torrents.id = snatched.torrentid WHERE snatched.finished='no' AND userid=" . ($CURUSER ["id"]) . " AND torrents_c.owner != " . ($CURUSER ["id"]) . " ORDER BY snatched.startdat DESC" ) or sqlerr ();
 		$torrent_uploaded = array ();
 		$torrent_seeding = array ();
 		$torrent_leeching = array ();
