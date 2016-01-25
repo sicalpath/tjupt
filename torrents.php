@@ -24,7 +24,7 @@ $catsperrow = get_searchbox_value($sectiontype, 'catsperrow'); //show how many c
 $catpadding = get_searchbox_value($sectiontype, 'catpadding'); //padding space between categories in pixel
 /*********************取出非试种***********************/
 $ret = array();
-$res = sql_query("SELECT id, mode, name, image FROM categories WHERE mode = ".sqlesc($sectiontype)." AND id<413 ORDER BY sort_index, id")or die(mysql_error());
+$res = sql_query("SELECT id, mode, name, image FROM categories WHERE mode = ".sqlesc($sectiontype)." AND id<413 AND id NOT IN (406) ORDER BY sort_index, id")or die(mysql_error());
 while ($row = mysql_fetch_array($res))
 	$ret[] = $row;
 $cats = $ret;
