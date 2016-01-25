@@ -356,6 +356,10 @@ elseif ($special_state == 8)	//30% down
 }
 
 $category_get = 0 + $_GET["cat"];
+if($category_get == 406)
+{
+	$category_get = 0;
+}
 if ($showsubcat){
 if ($showsource) $source_get = 0 + $_GET["source"];
 if ($showmedium) $medium_get = 0 + $_GET["medium"];
