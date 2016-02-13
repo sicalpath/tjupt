@@ -41,6 +41,6 @@ function bark($msg) {
 <tr><td class=rowhead>请输入你的密码</td><td><input type=password name=password size=40></td></tr>
 <tr><td colspan=2 align=center><input type=submit value="确定" class=btn></td></tr>
 </table>
-<?
-  stdfoot();
+<?php
+stdfoot();
 ?>

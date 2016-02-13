@@ -58,14 +58,14 @@ if($notice)print($notice);
 
 ?><form action="<?php echo str_replace("/","",$_SERVER['PHP_SELF']); ?>" method="post">
 <table width="60%" border="1" cellspacing="0" cellpadding="10">
-<tr><td class="text"  align="left" width="100%">请问：<? echo $res["question"]; ?></td></tr>
-<input type="hidden" name="id" value="<? echo $res["id"];?>" />
-<? echo $choices[0];?>
-<? echo $choices[1];?>
-<? echo $choices[2];?>
-<? echo $choices[3];?>
+<tr><td class="text"  align="left" width="100%">请问：<?php echo $res["question"]; ?></td></tr>
+<input type="hidden" name="id" value="<?php echo $res["id"];?>" />
+<?php echo $choices[0];?>
+<?php echo $choices[1];?>
+<?php echo $choices[2];?>
+<?php echo $choices[3];?>
 <tr><td class="text"  align="center" width="100%"><input type="submit" name="submit" value="提交" /> <input type="submit" name="change" value="换题" /></td></tr>
 <tr><td class="text"  align="center" width="100%"><font color="#FF0000"><b>温馨提醒：换题需要花费100个魔力值，且每道题只能更换一次！</b></font></td></tr>
 </table></form>
-<? stdfoot();
+<?php stdfoot();
 

@@ -22,8 +22,7 @@ $res=sql_query("SELECT * FROM questions");
 <td class="colhead" align="left" width="10%"> C </td>
 <td class="colhead" align="left" width="10%"> D </td>
 </tr>
-<?
-$res=sql_query("SELECT * FROM questions");
+<?php $res=sql_query("SELECT * FROM questions");
 while($arr=mysql_fetch_assoc($res))
 {
 print("<tr>
@@ -38,7 +37,7 @@ print("<tr>
 print("</table>\n<br/><br/><h1>录入新题目</h1>");
 ?>
 <table width="80%" border="1" cellspacing="0" cellpadding="10">
-<tr><form action="<? echo str_replace("/","",$_SERVER['PHP_SELF']); ?>" method="post"><td class="text"  align="right" width="7%">题目</td><td class="text"  align="left" width="93%"><input type="text" name="question" size="120"></td></tr>
+<tr><form action="<?php echo str_replace("/","",$_SERVER['PHP_SELF']); ?>" method="post"><td class="text"  align="right" width="7%">题目</td><td class="text"  align="left" width="93%"><input type="text" name="question" size="120"></td></tr>
 <td class="text"  align="right">A</td><td class="text"  align="left"><input type="text" name="question1"><input type="checkbox" name="answer[]" value="1"></td></tr>
 <td class="text"  align="right">B</td><td class="text"  align="left"><input type="text" name="question2"><input type="checkbox" name="answer[]" value="2"></td></tr>
 <td class="text"  align="right">C</td><td class="text"  align="left"><input type="text" name="question4"><input type="checkbox" name="answer[]" value="4"></td></tr>
