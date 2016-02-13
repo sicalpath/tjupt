@@ -38,7 +38,7 @@ stdhead ( "禁止发布的文件类型" );
 print ("<h1>已禁止发布文件类型</h1>\n") ;
 ?>
 <br/><h2>说明：</h2><table width="100%"><tbody><tr><td class="text" valign="top"><div style="margin-left: 16pt;">1.banned:含有此类文件的种子将无法发布并且不会转为候选。<br/>2.notallowed:含有此类文件的种子将无法发布而会转为候选。<br/>3.默认banned:(qsv)|(KUX);<br/>默认notallowed:(torrent)|(!ut)|(url)|(qdl2)|(td)|(tdl)|(td\.cfg)|(tmp)。<br/></div></td></tr></tbody></table>
-<?
+<?php
 if (mysql_num_rows ( $res ) == 0)
 	print ("<p align=center><b>列表为空！</b></p>\n") ;
 else {
