@@ -60,8 +60,8 @@ if (!$action) {
 ?>
 <table width="100%" >
 <tr><td class="colhead" colspan="5" align="center"><font class="big">道具卡商城</font></td></tr>
-<?
-	if ($msg)
+<?php
+    if ($msg)
 	print("<tr><td align=\"center\" colspan=\"5\"><font class=\"striking\">". $msg ."</font></td></tr>");
 ?>
 <tr><td class="text" align="center" colspan="5"><b>用你的魔力值来购买神奇的道具卡！道具卡购买后需使用才能生效！道具卡可以转让，也可以出售，出售价格为购入价格的60%。</b></td></tr>

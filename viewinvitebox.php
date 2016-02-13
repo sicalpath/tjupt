@@ -158,7 +158,7 @@ print("<tr>
 ?>
 <tr><td class="colhead"><input class="btn" type="button" value="全选" onclick="this.value=check(form,'全选','全不选')"></td><td class="colhead" colspan="12" align="right"><input type="submit" name="setdealt" value="忽略" /><input type="submit" name="invite" value="邀请" /><input type="submit" name="delete" value="删除" /></td></tr> 
 </form>
-<?
+<?php
 print "</table>";
 echo $pagerbottom;
 stdfoot();

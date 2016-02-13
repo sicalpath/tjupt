@@ -271,9 +271,9 @@ stdhead("北洋媛徽章预定");
 	print $grouplink;
 	?>
 <h1>管理订单</h1>
-<h2>款式一数量:<? print("$row1[sum1]");?></h2>
-<h2>款式二数量:<? print("$row2[sum2]");?></h2>
-<h2>款式三数量:<? print("$row3[sum3]");?></h2>
+<h2>款式一数量:<?php print("$row1[sum1]");?></h2>
+<h2>款式二数量:<?php print("$row2[sum2]");?></h2>
+<h2>款式三数量:<?php print("$row3[sum3]");?></h2>
 
 <table class="main" border="1" cellspacing="0" cellpadding="5"><tbody><tr>
 <form method=post action=order.php?action=delete>
@@ -332,9 +332,8 @@ print("<tr>
 	第一批：可选择站庆聚会期间现场付款领取，也可以选择站庆后到工作人员处领取。</br>
 	第二批：站庆后由工作人员联系到工作人员处领取。</br>
 	由于校外用户配送和付款的不便，暂时无法向校外用户发售。如果您特别非常极度想要，请联系客服。</br>
-4.如有问题，请联系客服：<? print(get_username(24298));?><a href="sendmessage.php?receiver=24298" title="发送短讯"><img class="button_pm" src="pic/trans.gif" alt="pm"></a>
+4.如有问题，请联系客服：<?php print(get_username(24298));?><a href="sendmessage.php?receiver=24298" title="发送短讯"><img class="button_pm" src="pic/trans.gif" alt="pm"></a>
 </td></tr></tbody></table></table>
-<?
-	}
+<?php 	}
 	}
 	stdfoot();

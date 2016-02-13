@@ -184,8 +184,8 @@ echo("<td class=rowfollow><input class=checkbox type=\"checkbox\" name=\"message
 ?>
 <tr class="colhead">
 <td colspan="5" align="right" class="colhead"><input class=btn type="button" value="<?php echo $lang_messages['input_check_all']; ?>" onClick="this.value=check(form,'<?php echo $lang_messages['input_check_all'] ?>','<?php echo $lang_messages['input_uncheck_all'] ?>')"> 
-<input type="hidden" name="unread" value="<? echo($_GET["unread"]?$_GET["unread"]:"");?>">
-<input type="hidden" name="page" value="<? echo($_GET["page"]?$_GET["page"]:"0");?>">
+<input type="hidden" name="unread" value="<?php echo($_GET["unread"]?$_GET["unread"]:"");?>">
+<input type="hidden" name="page" value="<?php echo($_GET["page"]?$_GET["page"]:"0");?>">
 <?php if($mailbox != PM_SENTBOX) print("<input class=btn type=\"submit\" name=\"markread\" value=\"".$lang_messages['submit_mark_as_read']."\">") ?>
 <input class=btn type="submit" name="delete" value=<?php echo $lang_messages['submit_delete']?>>
 <?php
