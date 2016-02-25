@@ -972,18 +972,19 @@ function docleanup($forceAll = 0, $printProgress = false) {
 			sql_query ( "INSERT INTO messages (sender, receiver, added, subject, msg) VALUES(0, $arr[owner], $dt, " . sqlesc ( $subject ) . ", " . sqlesc ( $msg ) . ")" ) or sqlerr ( __FILE__, __LINE__ );
 			write_log ( "系统删除了资源 $arr[id] ($arr[name]) (长期断种)", 'normal' );
 		}
-	}
-	// 删除永久促销的长期断种（180天）
-	$length = 180 * 86400;
-	$until = date ( "Y-m-d H:i:s", (TIMENOW - $length) );
-	$dt = sqlesc ( date ( "Y-m-d H:i:s" ) );
-	$res = sql_query ( "SELECT id, name, owner FROM torrents WHERE visible = 'no' AND last_action < " . sqlesc ( $until ) . " AND seeders = 0 AND leechers = 0 AND sp_state > '8' " ) or sqlerr ( __FILE__, __LINE__ );
-	while ( $arr = mysql_fetch_assoc ( $res ) ) {
-		deletetorrent_meanit ( $arr ['id'] );
-		$subject = $lang_cleanup_target [get_user_lang ( $arr [owner] )] ['msg_your_torrent_deleted'];
-		$msg = $lang_cleanup_target [get_user_lang ( $arr [owner] )] ['msg_your_torrent'] . "[i]" . $arr ['name'] . "[/i]" . $lang_cleanup_target [get_user_lang ( $arr [owner] )] ['msg_was_deleted_because_dead'];
-		sql_query ( "INSERT INTO messages (sender, receiver, added, subject, msg) VALUES(0, $arr[owner], $dt, " . sqlesc ( $subject ) . ", " . sqlesc ( $msg ) . ")" ) or sqlerr ( __FILE__, __LINE__ );
-		write_log ( "系统删除了资源 $arr[id] ($arr[name]) (永久促销长期断种)", 'normal' );
+		// 删除永久促销的长期断种（180天）
+		$sp_length = 180 * 86400;
+		$length = $length > $sp_length ? $length : $sp_length; // choose the longer period.
+		$until = date ( "Y-m-d H:i:s", (TIMENOW - $length) );
+		$dt = sqlesc ( date ( "Y-m-d H:i:s" ) );
+		$res = sql_query ( "SELECT id, name, owner FROM torrents WHERE visible = 'no' AND last_action < " . sqlesc ( $until ) . " AND seeders = 0 AND leechers = 0 AND sp_state > '8' " ) or sqlerr ( __FILE__, __LINE__ );
+		while ( $arr = mysql_fetch_assoc ( $res ) ) {
+			deletetorrent_meanit ( $arr ['id'] );
+			$subject = $lang_cleanup_target [get_user_lang ( $arr [owner] )] ['msg_your_torrent_deleted'];
+			$msg = $lang_cleanup_target [get_user_lang ( $arr [owner] )] ['msg_your_torrent'] . "[i]" . $arr ['name'] . "[/i]" . $lang_cleanup_target [get_user_lang ( $arr [owner] )] ['msg_was_deleted_because_dead'];
+			sql_query ( "INSERT INTO messages (sender, receiver, added, subject, msg) VALUES(0, $arr[owner], $dt, " . sqlesc ( $subject ) . ", " . sqlesc ( $msg ) . ")" ) or sqlerr ( __FILE__, __LINE__ );
+			write_log ( "系统删除了资源 $arr[id] ($arr[name]) (永久促销长期断种)", 'normal' );
+		}
 	}
 	// 删除回收站资源（7天）
 	$length = 7 * 86400;
