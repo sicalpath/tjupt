@@ -115,7 +115,7 @@ elseif($catid == "403"){
 	tr_textcheckbox("国家/地区","district","districttvshows");
 	tr_select("字幕情况","subsinfo","subsinfo");
 	tr_textcheckbox("节目语言","language","langtvshows");
-	tr_textradio("节目格式","format","formattvshows","格式");
+	tr_textcheckbox("节目格式","format","formattvshows");
 	
 	tr_text("备注","tvshowsremarks");
 }
