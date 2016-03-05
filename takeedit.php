@@ -311,6 +311,8 @@ if ($catid == 403) {
 		$nameset .= "[" . $ename . "]";
 	if ($tvshowscontent != "")
 		$nameset .= "[" . $tvshowscontent . "]";
+	if ($format != "")
+		$nameset .= "[" . $format . "]";
 }
 if ($catid == 404) {
 	$version = unesc ( trimcomma ( $_POST ["version"] ) );
