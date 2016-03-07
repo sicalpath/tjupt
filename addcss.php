@@ -82,7 +82,7 @@ table.headwide {background:url('/usercss/logo.png') no-repeat left center; heigh
 table.head {background:url('/usercss/logo.png') no-repeat left center; height:200px}<br/>
 .logo{display:none;}<br/>
 .slogan{display:none;}<br/>
-</td> </tr><tr><td class="text" align="left">自定义CSS的用户: <?print join(" , ",$useridcssall);?></td></tr></table>
+</td> </tr><tr><td class="text" align="left">自定义CSS的用户: <?php print join(" , ",$useridcssall);?></td></tr></table>
 <?php
 end_main_frame();
 stdfoot();
